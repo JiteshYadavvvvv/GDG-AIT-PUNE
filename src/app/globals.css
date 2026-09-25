@@ -1,0 +1,4 @@
+@import "tailwindcss";
+@import "lenis/dist/lenis.css";
+@import "../styles/theme.css";
+@import "../styles/base.css";

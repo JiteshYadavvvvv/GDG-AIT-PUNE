@@ -1,0 +1,64 @@
+/* Global element defaults. Keep this small — styling belongs in components. */
+
+@layer base {
+  html {
+    color-scheme: dark;
+    -webkit-text-size-adjust: 100%;
+  }
+
+  body {
+    min-height: 100dvh;
+    background-color: var(--color-canvas);
+    color: var(--color-fg);
+    font-family: var(--font-sans);
+    font-size: var(--text-body);
+    line-height: var(--text-body--line-height);
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  ::selection {
+    background-color: color-mix(in oklab, var(--color-gdg-blue) 45%, transparent);
+    color: var(--color-fg);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 3px;
+  }
+
+  /*
+   * Theme scopes: re-point the semantic tokens for a subtree, e.g. a light
+   * section inside the dark page: <section data-theme="light">.
+   * On light, GDG colours fall below 4.5:1 — use them for graphics and
+   * large display type only, not body-size text.
+   */
+  [data-theme="light"] {
+    color-scheme: light;
+    --color-canvas: var(--color-neutral-50);
+    --color-surface: var(--color-neutral-100);
+    --color-surface-raised: var(--color-white);
+    --color-fg: var(--color-neutral-1000);
+    --color-fg-muted: var(--color-neutral-700);
+    --color-fg-subtle: var(--color-neutral-600);
+    --color-line: color-mix(in oklab, var(--color-neutral-1000) 10%, transparent);
+    --color-line-strong: color-mix(in oklab, var(--color-neutral-1000) 20%, transparent);
+  }
+}
+
+/*
+ * Reduced motion safety net for CSS animations/transitions. JS-driven motion
+ * is handled at the source: Lenis (respectReducedMotion), Motion
+ * (MotionConfig reducedMotion="user"), GSAP (gsap.matchMedia with
+ * MEDIA.reducedMotion) and R3F (SceneCanvas renders on demand).
+ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  ::before,
+  ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

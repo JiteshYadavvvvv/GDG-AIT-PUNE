@@ -1,0 +1,8 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
+  <!-- Placeholder mark until the official GDG logo asset is brought in. -->
+  <rect width="64" height="64" rx="14" fill="#090b0f"/>
+  <circle cx="22" cy="22" r="8" fill="#4285f4"/>
+  <circle cx="42" cy="22" r="8" fill="#ea4335"/>
+  <circle cx="22" cy="42" r="8" fill="#34a853"/>
+  <circle cx="42" cy="42" r="8" fill="#fbbc04"/>
+</svg>
