@@ -1,6 +1,10 @@
 import type { Metadata, Viewport } from "next";
 import { Google_Sans_Code, Google_Sans_Flex } from "next/font/google";
 
+import { CustomCursor } from "@/components/common/custom-cursor";
+import { Footer } from "@/components/layout/footer";
+import { SiteBackground } from "@/components/layout/site-background";
+import { Navbar } from "@/components/navigation/navbar";
 import { siteConfig } from "@/config/site";
 import { cn } from "@/lib/utils/cn";
 
@@ -8,11 +12,7 @@ import { Providers } from "./providers";
 
 import "./globals.css";
 
-// Variable weight axis only (~50 KB latin). Extra axes are opt-in for Stage 1:
-// `axes: ["opsz"]` or `["wdth"]` ≈ +67 KB each, both together ≈ 308 KB.
-//
-// Next.js has no fallback metrics for these families yet, so a size-adjusted
-// fallback can't be generated automatically; system fonts are declared instead.
+// No metric overrides exist for these families yet, so no adjusted fallback.
 const googleSansFlex = Google_Sans_Flex({
   subsets: ["latin"],
   variable: "--font-google-sans-flex",
@@ -52,8 +52,6 @@ export const metadata: Metadata = {
     description: siteConfig.description,
   },
   robots: { index: true, follow: true },
-  // Icons and the OG image come from file conventions in this folder:
-  // icon.svg, opengraph-image.tsx (add apple-icon.png with the final logo).
 };
 
 export const viewport: Viewport = {
@@ -61,14 +59,26 @@ export const viewport: Viewport = {
   initialScale: 1,
   viewportFit: "cover",
   themeColor: siteConfig.themeColor,
-  colorScheme: "dark",
+  colorScheme: "light",
 };
 
 export default function RootLayout({ children }: LayoutProps<"/">) {
   return (
     <html lang="en" className={cn(googleSansFlex.variable, googleSansCode.variable)}>
       <body>
-        <Providers>{children}</Providers>
+        <a
+          href="#main"
+          className="sr-only rounded-full bg-ink px-4 py-2 text-small text-canvas focus:not-sr-only focus:fixed focus:top-4 focus:left-4 focus:z-(--z-toast)"
+        >
+          Skip to content
+        </a>
+        <Providers>
+          <SiteBackground />
+          <Navbar />
+          <main id="main">{children}</main>
+          <Footer />
+          <CustomCursor />
+        </Providers>
       </body>
     </html>
   );

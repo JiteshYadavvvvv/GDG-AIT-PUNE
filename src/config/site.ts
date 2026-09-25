@@ -1,11 +1,7 @@
-/**
- * Site-wide identity used by metadata, OG images, robots and sitemap.
- * Description is a factual placeholder — final copy lands in a later stage.
- */
+import { paperHex } from "./brand";
 
 function resolveSiteUrl() {
   if (process.env.NEXT_PUBLIC_SITE_URL) return process.env.NEXT_PUBLIC_SITE_URL;
-  // Provided automatically on Vercel builds.
   if (process.env.VERCEL_PROJECT_PRODUCTION_URL) {
     return `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`;
   }
@@ -18,6 +14,5 @@ export const siteConfig = {
   description: "Google Developer Groups on Campus at Army Institute of Technology, Pune.",
   url: resolveSiteUrl(),
   locale: "en_IN",
-  /** Must match --color-canvas in src/styles/theme.css. */
-  themeColor: "#090b0f",
+  themeColor: paperHex,
 } as const;

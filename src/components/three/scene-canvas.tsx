@@ -10,23 +10,19 @@ import { detectQualityTier, QUALITY_PROFILES, type QualityProfile } from "@/lib/
 
 const QualityContext = createContext<QualityProfile>(QUALITY_PROFILES.medium);
 
-/** Inside a scene: scale workloads, e.g. `count * useSceneQuality().density`. */
 export function useSceneQuality() {
   return useContext(QualityContext);
 }
 
 export interface SceneCanvasProps extends Omit<CanvasProps, "dpr" | "frameloop" | "gl"> {
-  /** False while offscreen — rendering stops entirely. */
+  /** False while offscreen. */
   active?: boolean;
-  /** False for static scenes — renders only on `invalidate()`. */
+  /** False for static scenes; they render on invalidate() only. */
   animate?: boolean;
   gl?: Omit<WebGLRendererParameters, "canvas">;
 }
 
-/**
- * R3F canvas with quality scaling and motion preferences applied. Not used
- * directly — import `LazyScene`, which code-splits this module.
- */
+// Loaded through LazyScene only.
 export default function SceneCanvas({
   active = true,
   animate = true,
@@ -38,7 +34,6 @@ export default function SceneCanvas({
   const [quality] = useState(() => QUALITY_PROFILES[detectQualityTier()]);
   const [dpr, setDpr] = useState(quality.dpr[1]);
 
-  // Reduced motion keeps the scene visible as a still frame.
   const frameloop = !active ? "never" : animate && !reducedMotion ? "always" : "demand";
 
   return (

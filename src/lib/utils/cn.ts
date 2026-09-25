@@ -1,10 +1,8 @@
 import { clsx, type ClassValue } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
 
-// tailwind-merge only knows Tailwind's default scale. Without this, custom
-// tokens are misclassified — e.g. `text-display` is read as a text *colour*
-// and silently dropped by cn("text-display", "text-fg").
-// Keep in sync with src/styles/theme.css.
+// Custom theme names from styles/theme.css. Without these, cn("text-display", "text-fg")
+// treats text-display as a colour and drops it.
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {
@@ -14,21 +12,21 @@ const twMerge = extendTailwindMerge({
         "heading-lg",
         "heading-md",
         "heading-sm",
+        "lead",
         "body",
         "small",
         "caption",
         "label",
       ],
       font: ["display"],
-      spacing: ["gutter", "section"],
+      spacing: ["gutter", "section", "nav"],
       container: ["prose", "content", "wide"],
-      shadow: ["raised", "overlay", "glow-blue", "glow-red", "glow-yellow", "glow-green"],
+      shadow: ["hairline", "raised", "floating"],
       ease: ["standard"],
     },
   },
 });
 
-/** Compose class names; later Tailwind classes win over conflicting earlier ones. */
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }

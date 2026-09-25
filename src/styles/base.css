@@ -1,8 +1,6 @@
-/* Global element defaults. Keep this small — styling belongs in components. */
-
 @layer base {
   html {
-    color-scheme: dark;
+    color-scheme: light;
     -webkit-text-size-adjust: 100%;
   }
 
@@ -17,9 +15,20 @@
     -moz-osx-font-smoothing: grayscale;
   }
 
+  h1,
+  h2,
+  h3,
+  h4 {
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
   ::selection {
-    background-color: color-mix(in oklab, var(--color-gdg-blue) 45%, transparent);
-    color: var(--color-fg);
+    background-color: var(--color-yellow);
+    color: var(--color-ink);
   }
 
   :focus-visible {
@@ -27,31 +36,23 @@
     outline-offset: 3px;
   }
 
-  /*
-   * Theme scopes: re-point the semantic tokens for a subtree, e.g. a light
-   * section inside the dark page: <section data-theme="light">.
-   * On light, GDG colours fall below 4.5:1 — use them for graphics and
-   * large display type only, not body-size text.
-   */
-  [data-theme="light"] {
-    color-scheme: light;
-    --color-canvas: var(--color-neutral-50);
-    --color-surface: var(--color-neutral-100);
-    --color-surface-raised: var(--color-white);
-    --color-fg: var(--color-neutral-1000);
-    --color-fg-muted: var(--color-neutral-700);
-    --color-fg-subtle: var(--color-neutral-600);
-    --color-line: color-mix(in oklab, var(--color-neutral-1000) 10%, transparent);
-    --color-line-strong: color-mix(in oklab, var(--color-neutral-1000) 20%, transparent);
+  /* The custom cursor replaces the native one only where it shows a label. */
+  .has-custom-cursor :is([data-cursor="view"], [data-cursor="view"] *) {
+    cursor: none;
   }
 }
 
-/*
- * Reduced motion safety net for CSS animations/transitions. JS-driven motion
- * is handled at the source: Lenis (respectReducedMotion), Motion
- * (MotionConfig reducedMotion="user"), GSAP (gsap.matchMedia with
- * MEDIA.reducedMotion) and R3F (SceneCanvas renders on demand).
- */
+/* Hide scroll-reveal targets until GSAP takes over. No JS or reduced motion: always visible. */
+@media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
+  [data-reveal="text"] {
+    visibility: hidden;
+  }
+
+  [data-reveal="media"] {
+    clip-path: inset(100% 0 0 0);
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   ::before,

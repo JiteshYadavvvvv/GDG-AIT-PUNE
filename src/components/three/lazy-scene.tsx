@@ -12,26 +12,16 @@ import type { SceneCanvasProps } from "./scene-canvas";
 const SceneCanvas = dynamic(() => import("./scene-canvas"), { ssr: false });
 
 export interface LazySceneProps extends Omit<SceneCanvasProps, "active"> {
-  /** Size the wrapper; the canvas fills it. */
   className?: string;
-  /** Static stand-in shown until WebGL is ready, or if it is unavailable. */
+  /** Static stand-in until WebGL is ready, or if it fails. */
   fallback?: ReactNode;
-  /** Describe the scene if it carries meaning; otherwise it is aria-hidden. */
+  /** Only if the scene carries meaning; otherwise it's aria-hidden. */
   label?: string;
 }
 
 /**
- * Entry point for all 3D.
- * - three / R3F are fetched only when the scene approaches the viewport.
- * - The render loop stops while the scene is offscreen.
- * - WebGL failure degrades to `fallback` instead of breaking the page.
- *
- * Lazy-load scene contents as well, so `three` stays out of section bundles:
- *
- *   const NetworkField = lazy(() => import("./network-field"));
- *   <LazyScene className="h-dvh" fallback={<Poster />}>
- *     <NetworkField />
- *   </LazyScene>
+ * Loads three.js when the scene nears the viewport and pauses it offscreen.
+ * Load the scene contents with React.lazy too, so three stays out of section bundles.
  */
 export function LazyScene({
   className,
@@ -45,10 +35,10 @@ export function LazyScene({
   const isVisible = useInView(ref);
   const [isReady, setIsReady] = useState(false);
 
-  const handleCreated = (state: RootState) => {
+  function handleCreated(state: RootState) {
     setIsReady(true);
     onCreated?.(state);
-  };
+  }
 
   return (
     <div
@@ -68,7 +58,7 @@ export function LazyScene({
   );
 }
 
-/** Contains WebGL/scene errors so the page keeps working; the fallback returns. */
+// Keeps a WebGL failure from taking the page down.
 class SceneErrorBoundary extends Component<
   { children: ReactNode; onError: () => void },
   { failed: boolean }

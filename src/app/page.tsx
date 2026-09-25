@@ -1,14 +1,24 @@
 import type { Metadata } from "next";
-import nextPackage from "next/package.json";
 
-import { EnvironmentCheck } from "./_environment-check/environment-check";
+import { ColourSpecimen } from "./_preview/colour-specimen";
+import { InteractionSpecimen } from "./_preview/interaction-specimen";
+import { PlaceholderSections } from "./_preview/placeholder-sections";
+import { PreviewIntro } from "./_preview/preview-intro";
+import { TypeSpecimen } from "./_preview/type-specimen";
 
-// Temporary Stage 0 page. Delete `_environment-check/` and replace this file
-// with the real homepage in Stage 1.
+// Temporary: the design system preview stands in until the homepage sections land.
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
 export default function Home() {
-  return <EnvironmentCheck nextVersion={nextPackage.version} />;
+  return (
+    <>
+      <PreviewIntro />
+      <TypeSpecimen />
+      <ColourSpecimen />
+      <InteractionSpecimen />
+      <PlaceholderSections />
+    </>
+  );
 }

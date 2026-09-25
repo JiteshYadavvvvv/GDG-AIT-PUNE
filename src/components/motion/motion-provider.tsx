@@ -8,18 +8,7 @@ import { DURATION, EASE } from "@/lib/animations/tokens";
 const loadFeatures = () =>
   import("@/lib/animations/motion-features").then((mod) => mod.default);
 
-/**
- * Motion defaults for the whole app.
- *
- * - `reducedMotion="user"`: transform/layout animations are skipped when the
- *   OS asks for reduced motion; opacity/colour still animate.
- * - `LazyMotion strict`: components must use `m.div` (not `motion.div`) so the
- *   animation engine is code-split. ESLint blocks importing `motion`.
- *
- * Ownership: Motion handles component state (hover, presence, layout,
- * micro-interactions). Scroll choreography belongs to GSAP — never animate
- * the same property of the same element with both.
- */
+// Strict LazyMotion: use `m.div`, not `motion.div`.
 export function MotionProvider({ children }: { children: ReactNode }) {
   return (
     <MotionConfig

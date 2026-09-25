@@ -1,0 +1,36 @@
+/*
+ * Chrome ignores ::-webkit-scrollbar once scrollbar-color/width are set,
+ * so the standard properties only go to browsers without the pseudo-elements.
+ */
+@supports selector(::-webkit-scrollbar) {
+  html::-webkit-scrollbar {
+    width: 10px;
+  }
+
+  html::-webkit-scrollbar-track {
+    background-color: var(--color-canvas);
+  }
+
+  html::-webkit-scrollbar-thumb {
+    border: 3px solid transparent;
+    border-radius: 999px;
+    background: linear-gradient(
+        var(--color-blue) 0 25%,
+        var(--color-red) 25% 50%,
+        var(--color-yellow) 50% 75%,
+        var(--color-green) 75% 100%
+      )
+      padding-box;
+  }
+
+  html::-webkit-scrollbar-thumb:hover {
+    border-width: 2px;
+  }
+}
+
+@supports not selector(::-webkit-scrollbar) {
+  html {
+    scrollbar-width: thin;
+    scrollbar-color: var(--color-blue) transparent;
+  }
+}

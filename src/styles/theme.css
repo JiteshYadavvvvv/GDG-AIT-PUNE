@@ -1,96 +1,93 @@
 /*
- * Design tokens — the single source of truth for the visual system.
- *
- * Everything in `@theme` becomes both a CSS variable and a Tailwind utility
- * (e.g. --color-canvas → bg-canvas, --text-display → text-display).
- * Tailwind's default palettes/scales are reset so only these tokens exist;
- * arbitrary values (`text-[13px]`) remain available as an escape hatch.
- *
- * JS mirrors (keep in sync when editing):
- *   breakpoints → src/lib/utils/media.ts
- *   easing/durations → src/lib/animations/tokens.ts
- *   custom utility names → src/lib/utils/cn.ts (tailwind-merge config)
- *   canvas colour → src/config/site.ts (theme-color meta)
- *
- * Values here are a foundation, not the final look — Stage 1 sets direction.
+ * Design tokens. Keep in sync:
+ *   breakpoints → lib/utils/media.ts
+ *   easing / durations → lib/animations/tokens.ts
+ *   custom utility names → lib/utils/cn.ts
+ *   brand hex values → config/brand.ts
  */
 
 @theme static {
-  /* ── Colour ─────────────────────────────────────────────────────────── */
   --color-*: initial;
 
   --color-white: #fff;
   --color-black: #000;
 
-  /* GDG brand — accents only, never large fills by default.
-     On-canvas text contrast: blue 5.5, red 5.0, yellow 11.5, green 6.4 (AA).
-     White text on these fails AA; use --color-on-accent instead. */
-  --color-gdg-blue: #4285f4;
-  --color-gdg-red: #ea4335;
-  --color-gdg-yellow: #fbbc04;
-  --color-gdg-green: #34a853;
+  /* Google brand. Base = fills and graphics (not body text on paper).
+     Strong = text-safe on paper (AA). Soft = tinted surfaces. */
+  --color-blue: #4285f4;
+  --color-blue-strong: #1967d2;
+  --color-blue-soft: #e8f0fe;
+  --color-red: #ea4335;
+  --color-red-strong: #c5221f;
+  --color-red-soft: #fce8e6;
+  --color-yellow: #fbbc04;
+  --color-yellow-strong: #a35a00;
+  --color-yellow-soft: #fef7e0;
+  --color-green: #34a853;
+  --color-green-strong: #137333;
+  --color-green-soft: #e6f4ea;
 
-  /* Cool neutral ramp (OKLCH, hue 265). Contrast vs canvas noted for text steps. */
-  --color-neutral-50: oklch(0.985 0.002 265); /* 18.8 */
-  --color-neutral-100: oklch(0.965 0.003 265);
-  --color-neutral-200: oklch(0.915 0.005 265);
-  --color-neutral-300: oklch(0.84 0.007 265);
-  --color-neutral-400: oklch(0.72 0.009 265); /* 7.9 */
-  --color-neutral-500: oklch(0.6 0.01 265); /* 5.0 — lowest step for body text */
-  --color-neutral-600: oklch(0.48 0.01 265);
-  --color-neutral-700: oklch(0.38 0.01 265);
-  --color-neutral-800: oklch(0.29 0.01 265);
-  --color-neutral-900: oklch(0.22 0.01 265);
-  --color-neutral-950: oklch(0.18 0.01 265);
-  --color-neutral-1000: oklch(0.15 0.01 265); /* ≈ #090b0f */
+  /* Warm stone neutrals. */
+  --color-stone-50: oklch(0.982 0.004 85);
+  --color-stone-100: oklch(0.965 0.005 85);
+  --color-stone-150: oklch(0.945 0.006 85);
+  --color-stone-200: oklch(0.915 0.007 85);
+  --color-stone-300: oklch(0.85 0.008 85);
+  --color-stone-400: oklch(0.72 0.009 85);
+  --color-stone-500: oklch(0.545 0.009 85);
+  --color-stone-600: oklch(0.48 0.009 85);
+  --color-stone-700: oklch(0.39 0.008 85);
+  --color-stone-800: oklch(0.3 0.007 85);
+  --color-stone-900: oklch(0.23 0.006 85);
+  --color-stone-950: oklch(0.19 0.005 85);
 
-  /* Semantic roles — components use these, not the raw ramp.
-     Re-scoped per subtree by [data-theme] in base.css. */
-  --color-canvas: var(--color-neutral-1000);
-  --color-surface: var(--color-neutral-950);
-  --color-surface-raised: var(--color-neutral-900);
-  --color-fg: var(--color-neutral-50);
-  --color-fg-muted: var(--color-neutral-400);
-  --color-fg-subtle: var(--color-neutral-500);
-  --color-line: color-mix(in oklab, var(--color-neutral-50) 10%, transparent);
-  --color-line-strong: color-mix(in oklab, var(--color-neutral-50) 20%, transparent);
-  --color-on-accent: var(--color-neutral-1000);
-  --color-focus: var(--color-gdg-blue);
+  --color-canvas: var(--color-stone-50);
+  --color-surface: var(--color-white);
+  --color-sunken: var(--color-stone-100);
+  --color-ink: var(--color-stone-950);
+  --color-fg: var(--color-stone-950);
+  --color-fg-muted: var(--color-stone-600); /* 6.2:1 on canvas */
+  --color-fg-subtle: var(--color-stone-500); /* 4.7:1 on canvas */
+  --color-line: color-mix(in oklab, var(--color-stone-950) 9%, transparent);
+  --color-line-strong: color-mix(in oklab, var(--color-stone-950) 18%, transparent);
+  --color-focus: var(--color-blue-strong);
 
-  /* ── Typography ─────────────────────────────────────────────────────── */
   --font-*: initial;
   --font-sans: var(--font-google-sans-flex), ui-sans-serif, system-ui, sans-serif;
   --font-display: var(--font-google-sans-flex), ui-sans-serif, system-ui, sans-serif;
   --font-mono: var(--font-google-sans-code), ui-monospace, "SFMono-Regular", monospace;
 
-  /* Fluid role-based scale: linear from 320px to 1920px viewports.
-     Each `text-*` utility sets size, line-height, tracking and weight. */
+  /* Fluid 320px → 1920px. Each role sets size, leading, tracking, weight. */
   --text-*: initial;
 
-  --text-display: clamp(2.75rem, 1.2rem + 7.75vw, 10.5rem);
-  --text-display--line-height: 0.9;
-  --text-display--letter-spacing: -0.045em;
-  --text-display--font-weight: 600;
+  --text-display: clamp(3rem, 1.4rem + 8vw, 11rem);
+  --text-display--line-height: 0.88;
+  --text-display--letter-spacing: -0.05em;
+  --text-display--font-weight: 500;
 
-  --text-heading-xl: clamp(2.25rem, 1.4rem + 4.25vw, 6.5rem);
-  --text-heading-xl--line-height: 0.95;
-  --text-heading-xl--letter-spacing: -0.035em;
-  --text-heading-xl--font-weight: 600;
+  --text-heading-xl: clamp(2.375rem, 1.5rem + 4.4vw, 6.75rem);
+  --text-heading-xl--line-height: 0.94;
+  --text-heading-xl--letter-spacing: -0.04em;
+  --text-heading-xl--font-weight: 500;
 
   --text-heading-lg: clamp(1.875rem, 1.35rem + 2.625vw, 4.5rem);
   --text-heading-lg--line-height: 1;
-  --text-heading-lg--letter-spacing: -0.03em;
-  --text-heading-lg--font-weight: 600;
+  --text-heading-lg--letter-spacing: -0.035em;
+  --text-heading-lg--font-weight: 500;
 
   --text-heading-md: clamp(1.5rem, 1.2rem + 1.5vw, 3rem);
   --text-heading-md--line-height: 1.08;
-  --text-heading-md--letter-spacing: -0.02em;
-  --text-heading-md--font-weight: 600;
+  --text-heading-md--letter-spacing: -0.025em;
+  --text-heading-md--font-weight: 500;
 
   --text-heading-sm: clamp(1.25rem, 1.125rem + 0.625vw, 1.875rem);
   --text-heading-sm--line-height: 1.2;
-  --text-heading-sm--letter-spacing: -0.01em;
-  --text-heading-sm--font-weight: 600;
+  --text-heading-sm--letter-spacing: -0.015em;
+  --text-heading-sm--font-weight: 500;
+
+  --text-lead: clamp(1.125rem, 1.05rem + 0.375vw, 1.5rem);
+  --text-lead--line-height: 1.45;
+  --text-lead--letter-spacing: -0.01em;
 
   --text-body: clamp(1rem, 0.975rem + 0.125vw, 1.125rem);
   --text-body--line-height: 1.6;
@@ -99,64 +96,54 @@
   --text-small--line-height: 1.5;
 
   --text-caption: clamp(0.75rem, 0.7375rem + 0.0625vw, 0.8125rem);
-  --text-caption--line-height: 1.4;
-  --text-caption--letter-spacing: 0.01em;
+  --text-caption--line-height: 1.45;
 
-  --text-label: clamp(0.6875rem, 0.675rem + 0.0625vw, 0.75rem);
+  --text-label: clamp(0.75rem, 0.7375rem + 0.0625vw, 0.8125rem);
   --text-label--line-height: 1.2;
-  --text-label--letter-spacing: 0.12em;
   --text-label--font-weight: 500;
 
-  /* ── Layout ─────────────────────────────────────────────────────────── */
-  /* Mobile-first. Base styles target 320px; 390px is covered fluidly. */
   --breakpoint-*: initial;
-  --breakpoint-xs: 23.4375rem; /* 375  small phones   */
-  --breakpoint-sm: 26.875rem; /*  430  large phones   */
-  --breakpoint-md: 48rem; /*      768  tablet         */
-  --breakpoint-lg: 64rem; /*      1024 tablet L/laptop */
-  --breakpoint-xl: 80rem; /*      1280 laptop         */
-  --breakpoint-2xl: 90rem; /*     1440 desktop        */
-  --breakpoint-3xl: 120rem; /*    1920 large desktop  */
+  --breakpoint-xs: 23.4375rem; /* 375 */
+  --breakpoint-sm: 26.875rem; /* 430 */
+  --breakpoint-md: 48rem; /* 768 */
+  --breakpoint-lg: 64rem; /* 1024 */
+  --breakpoint-xl: 80rem; /* 1280 */
+  --breakpoint-2xl: 90rem; /* 1440 */
+  --breakpoint-3xl: 120rem; /* 1920 */
 
-  /* Named max-widths (max-w-content …). Tailwind's 3xs–7xl sizes are kept
-     because container queries (@md:, @lg: …) use the same namespace. */
   --container-prose: 42rem;
-  --container-content: 80rem;
+  --container-content: 84rem;
   --container-wide: 100rem;
 
-  /* Fluid rhythm: px-gutter, py-section, gap-gutter … */
-  --spacing-gutter: clamp(1rem, 0.6rem + 2vw, 3rem);
-  --spacing-section: clamp(5rem, 3rem + 10vw, 15rem);
+  --spacing-gutter: clamp(1rem, 0.5rem + 2.5vw, 3.5rem);
+  --spacing-section: clamp(5rem, 3rem + 10vw, 14rem);
+  --spacing-nav: 4.5rem;
 
-  /* ── Shape & depth ──────────────────────────────────────────────────── */
   --radius-*: initial;
   --radius-xs: 0.25rem;
   --radius-sm: 0.5rem;
-  --radius-md: 0.75rem;
+  --radius-md: 0.875rem;
   --radius-lg: 1.25rem;
   --radius-xl: 1.75rem;
   --radius-2xl: 2.5rem;
 
+  /* Soft, warm, layered — never hard offsets. */
   --shadow-*: initial;
+  --shadow-hairline: 0 0 0 1px var(--color-line);
   --shadow-raised:
-    inset 0 1px 0 0 color-mix(in oklab, var(--color-white) 6%, transparent),
-    0 12px 32px -12px oklch(0 0 0 / 0.6);
-  --shadow-overlay: 0 24px 80px -24px oklch(0 0 0 / 0.75);
-  --shadow-glow-blue: 0 0 48px -8px color-mix(in oklab, var(--color-gdg-blue) 55%, transparent);
-  --shadow-glow-red: 0 0 48px -8px color-mix(in oklab, var(--color-gdg-red) 55%, transparent);
-  --shadow-glow-yellow: 0 0 48px -8px color-mix(in oklab, var(--color-gdg-yellow) 45%, transparent);
-  --shadow-glow-green: 0 0 48px -8px color-mix(in oklab, var(--color-gdg-green) 55%, transparent);
+    0 0 0 1px var(--color-line), 0 1px 2px oklch(0.3 0.02 85 / 0.06),
+    0 8px 24px -12px oklch(0.3 0.02 85 / 0.14);
+  --shadow-floating:
+    0 0 0 1px var(--color-line), 0 2px 4px oklch(0.3 0.02 85 / 0.05),
+    0 24px 48px -20px oklch(0.3 0.02 85 / 0.22);
 
-  /* ── Motion (CSS transitions) ───────────────────────────────────────── */
   --ease-*: initial;
-  --ease-out: cubic-bezier(0.16, 1, 0.3, 1); /* expo.out — house curve */
-  --ease-in: cubic-bezier(0.7, 0, 0.84, 0); /* expo.in */
-  --ease-in-out: cubic-bezier(0.87, 0, 0.13, 1); /* expo.inOut */
-  --ease-standard: cubic-bezier(0.25, 1, 0.5, 1); /* power3.out — small UI changes */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
+  --ease-in-out: cubic-bezier(0.87, 0, 0.13, 1);
+  --ease-standard: cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-/* Tokens without a Tailwind namespace. Use as `z-(--z-header)`,
-   `duration-(--duration-fast)`. */
 :root {
   --duration-instant: 100ms;
   --duration-fast: 200ms;
@@ -167,7 +154,6 @@
   --z-below: -1;
   --z-base: 0;
   --z-raised: 10;
-  --z-sticky: 100;
   --z-header: 200;
   --z-overlay: 300;
   --z-modal: 400;

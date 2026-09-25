@@ -4,10 +4,9 @@ export type QualityTier = "low" | "medium" | "high";
 
 export interface QualityProfile {
   tier: QualityTier;
-  /** [min, max] device pixel ratio; runtime FPS monitoring moves between them. */
   dpr: [number, number];
   antialias: boolean;
-  /** Multiplier for particle / instance / node counts. */
+  /** Multiplier for particle / instance counts. */
   density: number;
 }
 
@@ -17,13 +16,10 @@ export const QUALITY_PROFILES: Record<QualityTier, QualityProfile> = {
   high: { tier: "high", dpr: [1, 2], antialias: true, density: 1 },
 };
 
-/**
- * Coarse, client-only starting point for 3D quality. Touch devices start at
- * "medium" to cap DPR on 3x phone screens.
- */
+// Rough starting point; PerformanceMonitor adjusts DPR at runtime.
 export function detectQualityTier(): QualityTier {
   const nav = navigator as Navigator & {
-    deviceMemory?: number; // Chromium only
+    deviceMemory?: number;
     connection?: { saveData?: boolean };
   };
   const cores = nav.hardwareConcurrency || 4;
