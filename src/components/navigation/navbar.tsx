@@ -37,7 +37,7 @@ export function Navbar() {
   return (
     <header
       data-scrolled={isScrolled || undefined}
-      className="group/header fixed inset-x-0 top-0 z-(--z-header)"
+      className="group/header fixed inset-x-0 top-0 z-(--z-header) animate-drop-in"
     >
       <div
         className={cn(

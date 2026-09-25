@@ -7,10 +7,11 @@ import { inkHex } from "@/config/brand";
 interface StudioLightingProps {
   /** Y position of the contact-shadow plane. */
   floor?: number;
+  shadow?: boolean;
 }
 
 // Lightformers stand in for an HDR, so nothing is downloaded.
-export function StudioLighting({ floor = -1.4 }: StudioLightingProps) {
+export function StudioLighting({ floor = -1.4, shadow = true }: StudioLightingProps) {
   return (
     <>
       <ambientLight intensity={0.7} />
@@ -20,7 +21,9 @@ export function StudioLighting({ floor = -1.4 }: StudioLightingProps) {
         <Lightformer form="rect" intensity={1.5} position={[-5, 1, 1]} rotation-y={Math.PI / 2} scale={[6, 2, 1]} />
         <Lightformer form="rect" intensity={1.5} position={[5, 1, 1]} rotation-y={-Math.PI / 2} scale={[6, 2, 1]} />
       </Environment>
-      <ContactShadows position={[0, floor, 0]} opacity={0.32} scale={10} blur={2.6} far={4} color={inkHex} />
+      {shadow && (
+        <ContactShadows position={[0, floor, 0]} opacity={0.32} scale={10} blur={2.6} far={4} color={inkHex} />
+      )}
     </>
   );
 }

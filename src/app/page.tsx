@@ -1,12 +1,10 @@
 import type { Metadata } from "next";
 
-import { ColourSpecimen } from "./_preview/colour-specimen";
-import { InteractionSpecimen } from "./_preview/interaction-specimen";
-import { PlaceholderSections } from "./_preview/placeholder-sections";
-import { PreviewIntro } from "./_preview/preview-intro";
-import { TypeSpecimen } from "./_preview/type-specimen";
+import { Hero } from "@/sections/hero/hero";
 
-// Temporary: the design system preview stands in until the homepage sections land.
+import { PlaceholderSections } from "./_preview/placeholder-sections";
+
+// Kept out of search results until the remaining sections are in.
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
@@ -14,10 +12,7 @@ export const metadata: Metadata = {
 export default function Home() {
   return (
     <>
-      <PreviewIntro />
-      <TypeSpecimen />
-      <ColourSpecimen />
-      <InteractionSpecimen />
+      <Hero />
       <PlaceholderSections />
     </>
   );

@@ -2,8 +2,8 @@
 
 Website of Google Developer Groups on Campus, Army Institute of Technology, Pune.
 
-`/` currently shows a design system preview (`src/app/_preview/`). It is removed once the homepage
-sections are in place.
+The homepage currently has the hero plus placeholder anchors for the sections still to come. Type,
+colour and interaction specimens live at `/design-system` (not indexed).
 
 ## Stack
 
@@ -40,10 +40,11 @@ src/
     layout/             Container, Section, SiteBackground, Footer
     navigation/         Navbar, MobileMenu
     motion/             providers (Motion, Lenis), RevealText, RevealMedia, Parallax, Magnetic
-    three/              LazyScene, SceneCanvas, StudioLighting
+    three/              LazyScene, SceneCanvas, StudioLighting, developer-network/ (hero scene)
     ui/                 Button, TextLink, Card, SectionLabel, Logo, GdgMark
   config/               site identity, brand colours
-  data/                 navigation, links, contact
+  data/                 navigation, links, contact, hero copy
+  sections/hero/        hero copy, scroll stage, static network drawing
   hooks/                useMediaQuery, useActiveSection
   lib/
     animations/         gsap.ts (only GSAP entry point), tokens.ts
@@ -119,6 +120,26 @@ frames under reduced motion, and shows the fallback if WebGL fails. Scale work w
 Scenes sit on the light canvas: `StudioLighting` (soft Lightformers, contact shadows), glossy coloured
 materials (`lib/three/materials.ts`), white and stone objects alongside the four colours. Glass only
 where transparency means something. No dark space backgrounds or neon lighting.
+
+## Hero
+
+The hero is a contribution graph: four GDG-coloured branches with commit nodes run into the GDG mark,
+and one ink main line leaves it. Branches enter from the side in landscape and from both edges below
+the copy in portrait (`components/three/developer-network/layout.ts` holds both layouts).
+
+- **First paint**: the copy rises in with CSS and the network draws itself as an SVG rendered on the
+  server from the same layout data. No JavaScript is needed for either.
+- **Live scene**: once the drawing has finished, the R3F scene fades in over it, lined up exactly, and
+  takes over: pulses travel the branches, nodes near the mouse swell and lean in, and the view tilts
+  with the pointer.
+- **Scroll**: the section is taller than the viewport and its content is sticky. One scrubbed GSAP
+  timeline moves the copy out through masks, while the camera pushes in and the branches bundle into
+  the mark, ending on the chapter's name.
+- **Fallbacks**: reduced motion and no-JS get a normal-height hero with no scroll story; without WebGL
+  the drawing stays and zooms into the hub on scroll.
+
+When the copy or its spacing changes, check that the branches still run through the gaps between the
+text blocks, at 1024, 1440, 1920 and phone widths.
 
 ## Responsive and accessibility
 

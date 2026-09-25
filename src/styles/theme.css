@@ -142,6 +142,41 @@
   --ease-in: cubic-bezier(0.7, 0, 0.84, 0);
   --ease-in-out: cubic-bezier(0.87, 0, 0.13, 1);
   --ease-standard: cubic-bezier(0.25, 1, 0.5, 1);
+
+  /* First-load entrances. CSS so they start at first paint, without waiting for JS.
+     `backwards` so nothing is left behind afterwards: a leftover transform on the header
+     would trap its fixed mobile menu. */
+  --animate-rise-in: rise-in var(--duration-slower) var(--ease-out) backwards;
+  --animate-drop-in: drop-in var(--duration-slow) var(--ease-out) backwards;
+  --animate-draw-in: draw-in 1.6s var(--ease-out) backwards;
+  --animate-pop-in: pop-in var(--duration-slow) var(--ease-out) backwards;
+
+  @keyframes rise-in {
+    from {
+      transform: translateY(108%) rotate(1.5deg);
+    }
+  }
+
+  @keyframes drop-in {
+    from {
+      transform: translateY(-100%);
+    }
+  }
+
+  @keyframes draw-in {
+    from {
+      stroke-dashoffset: 1;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
+  }
+
+  @keyframes pop-in {
+    from {
+      transform: scale(0);
+    }
+  }
 }
 
 :root {
