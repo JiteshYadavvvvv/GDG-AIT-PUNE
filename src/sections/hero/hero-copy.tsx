@@ -50,7 +50,9 @@ export function HeroCopy() {
         </div>
 
         
+        {/* Shares the [data-hero-footer] selector so it rides the same scroll-out clip/sink as the description and CTA. */}
         <div
+          data-hero-footer
           aria-hidden
           className="pointer-events-none absolute -right-48.75 bottom-[-30] hidden w-[clamp(310px,48.5vw,650px)] animate-fade-up [animation-delay:860ms] md:block"
         >
