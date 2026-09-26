@@ -15,9 +15,9 @@ export function HeroCopy() {
 
   return (
     <div className="relative z-10 flex h-full flex-col pt-[calc(var(--spacing-nav)+clamp(1.25rem,5vh,4rem))] pb-[clamp(1.5rem,6vh,3.5rem)]">
-      <Container className="flex flex-1 flex-col">
+      <Container className="relative flex flex-1 flex-col">
         <div data-hero-meta className="overflow-hidden">
-          
+
         </div>
 
         <h1
@@ -47,12 +47,14 @@ export function HeroCopy() {
               </ButtonLink>
             </Magnetic>
           </div>
-          <div className="hidden justify-self-end overflow-hidden md:col-span-3 md:block">
-            {/* Secondary accent: sized to the original artwork, not the available column. Replaces the old scroll indicator. */}
-            <div className="w-[200px] animate-fade-up [animation-delay:860ms] lg:w-[280px]">
-              <Image src={community} alt="" aria-hidden className="h-auto w-full select-none" />
-            </div>
-          </div>
+        </div>
+
+        
+        <div
+          aria-hidden
+          className="pointer-events-none absolute -right-48.75 bottom-[-30] w-[clamp(310px,48.5vw,650px)] animate-fade-up [animation-delay:860ms]"
+        >
+          <Image src={community} alt="" className="h-auto w-full select-none" />
         </div>
       </Container>
 
