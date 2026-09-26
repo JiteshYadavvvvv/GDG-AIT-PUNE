@@ -15,7 +15,21 @@ export function HeroCopy() {
 
   return (
     <div className="relative z-10 flex h-full flex-col pt-[calc(var(--spacing-nav)+clamp(1.25rem,5vh,4rem))] pb-[clamp(1.5rem,6vh,3.5rem)]">
-      <Container className="relative flex flex-1 flex-col">
+      {/*
+        Sized in three overlapping segments instead of one linear vw clamp: a single rate can't
+        serve both the tight 1024–1280px range (where it was crowding the CTA) and ultra-wide
+        monitors (where a flat max-width looked stuck and small) at once. Each segment keeps the
+        image at roughly the same 34–36% share of the viewport as it grows.
+      */}
+      <div
+        data-hero-footer
+        aria-hidden
+        className="pointer-events-none absolute right-0 bottom-0 hidden w-[clamp(260px,36vw,400px)] animate-fade-up [animation-delay:860ms] md:block xl:w-[clamp(420px,34vw,650px)] 3xl:w-[clamp(650px,34vw,860px)]"
+      >
+        <Image src={community} alt="" className="h-auto w-full select-none" />
+      </div>
+
+      <Container className="flex flex-1 flex-col">
         <div data-hero-meta className="overflow-hidden">
 
         </div>
@@ -47,16 +61,6 @@ export function HeroCopy() {
               </ButtonLink>
             </Magnetic>
           </div>
-        </div>
-
-        
-        {/* Shares the [data-hero-footer] selector so it rides the same scroll-out clip/sink as the description and CTA. */}
-        <div
-          data-hero-footer
-          aria-hidden
-          className="pointer-events-none absolute -right-48.75 bottom-[-30] hidden w-[clamp(310px,48.5vw,650px)] animate-fade-up [animation-delay:860ms] md:block"
-        >
-          <Image src={community} alt="" className="h-auto w-full select-none" />
         </div>
       </Container>
 
