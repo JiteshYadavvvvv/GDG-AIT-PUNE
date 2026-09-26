@@ -61,9 +61,9 @@
   --text-*: initial;
 
   --text-display: clamp(3rem, 1.4rem + 8vw, 11rem);
-  --text-display--line-height: 0.88;
+  --text-display--line-height: 0.86;
   --text-display--letter-spacing: -0.05em;
-  --text-display--font-weight: 500;
+  --text-display--font-weight: 640;
 
   --text-heading-xl: clamp(2.375rem, 1.5rem + 4.4vw, 6.75rem);
   --text-heading-xl--line-height: 0.94;
@@ -150,10 +150,19 @@
   --animate-drop-in: drop-in var(--duration-slow) var(--ease-out) backwards;
   --animate-draw-in: draw-in 1.6s var(--ease-out) backwards;
   --animate-pop-in: pop-in var(--duration-slow) var(--ease-out) backwards;
+  --animate-fade-up: fade-up var(--duration-slow) var(--ease-out) backwards;
 
   @keyframes rise-in {
     from {
       transform: translateY(108%) rotate(1.5deg);
+    }
+  }
+
+  /* Plain fade + settle, for small standalone accents that aren't masked text/paths. */
+  @keyframes fade-up {
+    from {
+      opacity: 0;
+      transform: translateY(0.75rem) scale(0.98);
     }
   }
 

@@ -31,7 +31,7 @@ function NetworkDrawing({ layout, className }: { layout: NetworkLayout; classNam
   const unit = `min(100vw / ${width}, 100svh / ${height})`;
   const [mergeX, mergeY] = projectToFrame(new Vector3(...layout.merge), layout);
   const [endX, endY] = projectToFrame(new Vector3(...layout.mainLineEnd), layout);
-  const markWidth = HUB_SIZE * 0.58;
+  const markWidth = HUB_SIZE * 0.5;
   const markHeight = (markWidth * 34) / 66;
 
   return (

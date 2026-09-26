@@ -58,6 +58,8 @@ export const landscapeLayout: NetworkLayout = {
     { lane: 2, u: 0.8 },
     { lane: 2, u: 0.53 },
     { lane: 0, u: 0.62 },
+    { lane: 0, u: 0.84 },
+    { lane: 1, u: 0.83 },
   ],
   cameraEnd: [-2.6, 0.2, 4.6],
 };

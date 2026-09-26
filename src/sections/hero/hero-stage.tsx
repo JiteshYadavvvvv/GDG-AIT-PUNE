@@ -81,7 +81,6 @@ export function HeroStage({ fallback, children }: HeroStageProps) {
           .to("[data-hero-line='1']", { xPercent: -6, duration: 0.5 }, 0)
           .to("[data-hero-line='2']", { xPercent: 4, duration: 0.5 }, 0)
           .fromTo("[data-hero-footer]", { clipPath: shown }, { clipPath: "inset(100% 0% 0% 0%)", y: 56, duration: 0.3 }, 0)
-          .fromTo("[data-hero-progress]", { scaleY: 0.12 }, { scaleY: 1, duration: 1 }, 0)
           .to("[data-hero-fallback] > svg", { scale: 2.3, x: (_, svg) => offsetToCentre(svg).x, y: (_, svg) => offsetToCentre(svg).y, duration: 1 }, 0)
           .to("[data-hero-wash]", { opacity: 1, duration: 1 }, 0)
           .set("[data-hero-identity]", { visibility: "visible" }, 0.62)

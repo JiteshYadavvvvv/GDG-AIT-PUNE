@@ -67,7 +67,7 @@ export function Hub({ lanes, layout, frame }: HubProps) {
           style={{ width: HUB_SIZE * unit }}
           className="grid aspect-square place-items-center rounded-full bg-surface shadow-floating"
         >
-          <GdgMark label="Google Developer Groups" className="w-[58%]" />
+          <GdgMark label="Google Developer Groups" className="w-1/2" />
         </div>
       </Html>
 
@@ -85,9 +85,10 @@ export function Hub({ lanes, layout, frame }: HubProps) {
               }}
               // Html mounts after the first frame; with on-demand rendering there may not be a second one.
               style={{ ...accentVars(point.accent), opacity: reducedMotion ? 1 : 0 }}
-              className="inline-flex items-center gap-1.5 rounded-full bg-surface px-2.5 py-1.5 font-mono text-[0.6875rem] leading-none whitespace-nowrap text-ink shadow-raised"
+              className="inline-flex items-center gap-2 rounded-full bg-surface px-3 py-1.5 font-mono text-[0.6875rem] leading-none tracking-wide whitespace-nowrap text-ink shadow-raised"
             >
-              <span aria-hidden className="size-1.5 rounded-full bg-(--accent)" />
+              {/* Echoes the commit-node ring on the lane beneath it. */}
+              <span aria-hidden className="size-1.5 rounded-full border-[1.5px] border-(--accent) bg-surface" />
               {technologies[i]}
             </span>
           </Html>

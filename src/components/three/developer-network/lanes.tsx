@@ -11,7 +11,7 @@ import type { NetworkFrame } from "./developer-network";
 import { bundleAmount, type Lane, type NetworkLayout } from "./layout";
 
 const SEGMENTS = 140;
-const RADIAL_SEGMENTS = 8;
+const RADIAL_SEGMENTS = 16;
 const RADIUS = 0.045;
 
 interface LanesProps {
