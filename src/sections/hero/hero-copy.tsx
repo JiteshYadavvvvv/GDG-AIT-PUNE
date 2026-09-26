@@ -52,7 +52,7 @@ export function HeroCopy() {
         
         <div
           aria-hidden
-          className="pointer-events-none absolute -right-48.75 bottom-[-30] w-[clamp(310px,48.5vw,650px)] animate-fade-up [animation-delay:860ms]"
+          className="pointer-events-none absolute -right-48.75 bottom-[-30] hidden w-[clamp(310px,48.5vw,650px)] animate-fade-up [animation-delay:860ms] md:block"
         >
           <Image src={community} alt="" className="h-auto w-full select-none" />
         </div>
