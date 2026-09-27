@@ -9,7 +9,7 @@ function resolveSiteUrl() {
 }
 
 export const siteConfig = {
-  name: "GDG AIT Pune",
+  name: "GDG AIT",
   fullName: "Google Developer Groups on Campus — Army Institute of Technology, Pune",
   description: "Google Developer Groups on Campus at Army Institute of Technology, Pune.",
   url: resolveSiteUrl(),

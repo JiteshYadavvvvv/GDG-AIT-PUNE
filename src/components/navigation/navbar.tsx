@@ -11,7 +11,8 @@ import { Logo } from "@/components/ui/logo";
 import { accentVars } from "@/config/brand";
 import { joinLink, mainNav } from "@/data/navigation";
 import { useActiveSection } from "@/hooks/use-active-section";
-import { useMediaQuery } from "@/hooks/use-media-query";
+import { useMediaQuery, usePrefersReducedMotion } from "@/hooks/use-media-query";
+import { SPRING } from "@/lib/animations/tokens";
 import { cn } from "@/lib/utils/cn";
 import { formatIndex } from "@/lib/utils/format";
 import { MEDIA } from "@/lib/utils/media";
@@ -75,6 +76,9 @@ export function Navbar() {
 }
 
 function DesktopLinks({ activeId }: { activeId: string | null }) {
+  const reducedMotion = usePrefersReducedMotion();
+  const pillTransition = reducedMotion ? { duration: 0 } : SPRING.snappy;
+
   return (
     <nav aria-label="Main" className="hidden lg:block">
       <ul className="flex items-center">
@@ -87,16 +91,23 @@ function DesktopLinks({ activeId }: { activeId: string | null }) {
                 href={item.href}
                 aria-current={isActive ? "location" : undefined}
                 style={accentVars(item.accent)}
-                className="group flex items-center gap-2 px-3.5 py-2 text-small text-fg-muted transition-colors duration-(--duration-base) hover:text-ink aria-[current]:text-ink"
+                className="group relative isolate flex items-center gap-2 px-3.5 py-2 text-small text-fg-muted transition-colors duration-(--duration-base) hover:text-ink aria-[current]:text-ink"
               >
+                {isActive && (
+                  <m.span
+                    layoutId="active-nav-pill"
+                    transition={pillTransition}
+                    className="absolute inset-0 -z-10 rounded-full bg-(--accent)"
+                  />
+                )}
                 <span
-                  aria-hidden
                   className={cn(
-                    "size-1.5 bg-(--accent) transition-transform duration-(--duration-base) ease-out group-hover:scale-100",
-                    isActive ? "scale-100" : "scale-0",
+                    "font-mono text-caption text-fg-subtle tabular-nums transition-colors duration-(--duration-base)",
+                    "group-aria-[current]:text-ink",
                   )}
-                />
-                <span className="font-mono text-caption text-fg-subtle tabular-nums">{formatIndex(index)}</span>
+                >
+                  {formatIndex(index)}
+                </span>
                 <span className="link-underline">{item.label}</span>
               </a>
             </li>
