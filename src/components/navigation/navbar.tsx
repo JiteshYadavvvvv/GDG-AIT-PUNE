@@ -14,7 +14,6 @@ import { useActiveSection } from "@/hooks/use-active-section";
 import { useMediaQuery, usePrefersReducedMotion } from "@/hooks/use-media-query";
 import { SPRING } from "@/lib/animations/tokens";
 import { cn } from "@/lib/utils/cn";
-import { formatIndex } from "@/lib/utils/format";
 import { MEDIA } from "@/lib/utils/media";
 
 import { MobileMenu } from "./mobile-menu";
@@ -81,8 +80,8 @@ function DesktopLinks({ activeId }: { activeId: string | null }) {
 
   return (
     <nav aria-label="Main" className="hidden lg:block">
-      <ul className="flex items-center">
-        {mainNav.map((item, index) => {
+      <ul className="flex items-center gap-1.5">
+        {mainNav.map((item) => {
           const isActive = item.href.endsWith(`#${activeId}`);
 
           return (
@@ -100,14 +99,6 @@ function DesktopLinks({ activeId }: { activeId: string | null }) {
                     className="absolute inset-0 -z-10 rounded-full bg-(--accent)"
                   />
                 )}
-                <span
-                  className={cn(
-                    "font-mono text-caption text-fg-subtle tabular-nums transition-colors duration-(--duration-base)",
-                    "group-aria-[current]:text-ink",
-                  )}
-                >
-                  {formatIndex(index)}
-                </span>
                 <span className="link-underline">{item.label}</span>
               </a>
             </li>
