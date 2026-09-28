@@ -8,7 +8,7 @@ export function Vision() {
   return (
     <Section accent="yellow">
       <div aria-hidden className="bg-dots absolute inset-0 opacity-50" />
-      <Container className="relative">
+      <Container className="relative overflow-x-hidden">
         <SlideCard accent="yellow" badge={vision.badge} heading={vision.heading} statement={vision.statement} />
       </Container>
     </Section>

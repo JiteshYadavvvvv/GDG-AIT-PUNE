@@ -48,10 +48,6 @@
     visibility: hidden;
   }
 
-  [data-reveal="media"] {
-    clip-path: inset(100% 0 0 0);
-  }
-
   [data-reveal="fade"] {
     opacity: 0;
   }

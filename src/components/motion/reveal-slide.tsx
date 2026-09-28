@@ -7,35 +7,22 @@ import { DURATION, EASE } from "@/lib/animations/tokens";
 import { cn } from "@/lib/utils/cn";
 import { MEDIA } from "@/lib/utils/media";
 
-type RevealDirection = "up" | "left" | "right";
-
-interface RevealMediaProps {
+interface RevealSlideProps {
   children: ReactNode;
   className?: string;
-  /** Which side the media travels in from. Defaults to a bottom-up entrance. */
-  direction?: RevealDirection;
+  /** Which side the block enters from. */
+  from?: "left" | "right";
   delay?: number;
-  /** How far outside its final position the media starts, in px. */
+  /** How far outside its final position the block starts, in px. */
   distance?: number;
 }
 
-function fromVars(direction: RevealDirection, distance: number) {
-  if (direction === "up") return { y: distance };
-  return { x: direction === "left" ? -distance : distance };
-}
-
 /**
- * A real clipped slide reveal for media: the outer wrapper masks (overflow-hidden, never
- * moves) while the inner content physically travels in from outside it — the same
- * architecture as RevealSlide, sized to fill its box so `next/image fill` still resolves.
+ * A real clipped slide: the outer wrapper masks (overflow-hidden, never moves) while the
+ * inner content physically travels in from outside it. Opacity rides along as a secondary
+ * polish only — translateX is the primary, clearly-visible motion.
  */
-export function RevealMedia({
-  children,
-  className,
-  direction = "up",
-  delay = 0,
-  distance = 100,
-}: RevealMediaProps) {
+export function RevealSlide({ children, className, from = "left", delay = 0, distance = 80 }: RevealSlideProps) {
   const wrapperRef = useRef<HTMLDivElement>(null);
   const innerRef = useRef<HTMLDivElement>(null);
 
@@ -46,10 +33,9 @@ export function RevealMedia({
       mm.add(MEDIA.motionOK, () => {
         gsap.fromTo(
           innerRef.current,
-          { ...fromVars(direction, distance), opacity: 0 },
+          { x: from === "left" ? -distance : distance, opacity: 0 },
           {
             x: 0,
-            y: 0,
             opacity: 1,
             duration: DURATION.slower,
             delay,
@@ -66,7 +52,7 @@ export function RevealMedia({
 
   return (
     <div ref={wrapperRef} className={cn("overflow-hidden", className)}>
-      <div ref={innerRef} data-reveal="fade" className="size-full">
+      <div ref={innerRef} data-reveal="fade" className="relative">
         {children}
       </div>
     </div>
