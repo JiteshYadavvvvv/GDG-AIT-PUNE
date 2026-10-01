@@ -10,12 +10,18 @@ interface PanelStageProps {
 }
 
 
-const STAGE_CLASSES = ["lg:h-screen", "lg:overflow-hidden"];
+// Only overflow-x needs hiding — it's what keeps the horizontally xPercent-translated
+// off-stage panels from poking out sideways during the slide. overflow-y is deliberately
+// left alone (not "hidden"): a blanket overflow-hidden here would also hard-clip any
+// vertical overflow from a panel's own content (e.g. a badge/card sitting a few px past the
+// stage's h-screen box), with no visible fallback. Per the CSS overflow spec, pairing
+// overflow-x: hidden with no overflow-y declaration computes overflow-y to `auto`, so any
+// vertical excess becomes a scrollbar instead of invisible clipping.
+const STAGE_CLASSES = ["lg:h-screen", "lg:overflow-x-hidden"];
 // justify-center-safe (not justify-center): if a panel's content ever exceeds the pinned
-// 100vh box, plain `center` overflows symmetrically — including past the top edge, where
-// the stage's overflow-hidden silently clips it (this is what was cutting off the Vision/
-// Mission badge). The `-safe` variant falls back to start-alignment once content overflows,
-// so any excess spills downward into the panel's own scrollable area instead.
+// 100vh box, plain `center` overflows symmetrically — including past the top edge. The
+// `-safe` variant falls back to start-alignment once content overflows, so any excess spills
+// downward into the panel's own scrollable area instead of off the top.
 const PANEL_CLASSES = [
   "lg:absolute",
   "lg:inset-0",
@@ -25,6 +31,12 @@ const PANEL_CLASSES = [
   "lg:overflow-y-auto",
   "lg:pt-nav",
 ];
+
+// Once pinned, every panel sits at inset:0 — identical getBoundingClientRect() regardless of
+// which one is actually showing. Anchor-link scrolling (smooth-scroll.tsx) can't tell panels
+// apart from their rect alone, so it looks this id up via ScrollTrigger.getById() and computes
+// the real target from the pin's own start/end instead.
+export const PANEL_GROUP_ID = "about-panel-stage";
 
 
 export function PanelStage({ panels }: PanelStageProps) {
@@ -46,6 +58,7 @@ export function PanelStage({ panels }: PanelStageProps) {
 
         const timeline = gsap.timeline({
           scrollTrigger: {
+            id: PANEL_GROUP_ID,
             trigger: stage,
             start: "top top",
             end: "+=200%",
@@ -53,7 +66,7 @@ export function PanelStage({ panels }: PanelStageProps) {
             pin: true,
             anticipatePin: 1,
             invalidateOnRefresh: true,
-            
+
             snap: { snapTo: [0, 0.5, 1], duration: 0.4, ease: "power2.inOut" },
           },
         });
@@ -75,10 +88,11 @@ export function PanelStage({ panels }: PanelStageProps) {
   );
 
   return (
-    <div ref={stageRef} className="relative bg-canvas">
+    <div ref={stageRef} className="relative bg-canvas" data-panel-group={PANEL_GROUP_ID} data-panel-count={panels.length}>
       {panels.map((panel, index) => (
         <div
           key={index}
+          data-panel-index={index}
           ref={(el) => {
             panelRefs.current[index] = el;
           }}

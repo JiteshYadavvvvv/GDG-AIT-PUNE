@@ -22,6 +22,24 @@ export const SCROLL_TO_OPTIONS = {
 
 const syncScrollTrigger = () => ScrollTrigger.update();
 
+// Inside a pinned, horizontally-swapped panel group (see panel-stage.tsx), every panel sits at
+// inset:0 — identical getBoundingClientRect() no matter which one is actually showing. Handing
+// Lenis the raw element in that case computes almost no scroll distance when jumping between
+// panels (e.g. the "About" nav link from Mission barely moves). Resolve the real position from
+// the pin's own ScrollTrigger start/end instead whenever the target lives inside one.
+function resolvePinnedScrollTarget(target: HTMLElement): HTMLElement | number {
+  const group = target.closest<HTMLElement>("[data-panel-group]");
+  const panel = target.closest<HTMLElement>("[data-panel-index]");
+  if (!group || !panel) return target;
+
+  const st = ScrollTrigger.getById(group.dataset.panelGroup!);
+  const count = Number(group.dataset.panelCount);
+  const index = Number(panel.dataset.panelIndex);
+  if (!st || !Number.isFinite(count) || count < 2 || !Number.isFinite(index)) return target;
+
+  return st.start + (st.end - st.start) * (index / (count - 1));
+}
+
 export function SmoothScroll({ children }: { children: ReactNode }) {
   const lenisRef = useRef<LenisRef>(null);
 
@@ -54,7 +72,7 @@ export function SmoothScroll({ children }: { children: ReactNode }) {
       if (!target) return;
 
       event.preventDefault();
-      lenis.scrollTo(target, SCROLL_TO_OPTIONS);
+      lenis.scrollTo(resolvePinnedScrollTarget(target), SCROLL_TO_OPTIONS);
       history.pushState(null, "", url.hash);
     }
 
