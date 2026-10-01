@@ -1,6 +1,5 @@
 export const about = {
   label: "Who we are",
-  heading: ["We build", "together."],
   photoAlt: "Members of GDG AIT Pune gathered in an auditorium for a community session.",
   photoCaption: "On campus, together",
 };

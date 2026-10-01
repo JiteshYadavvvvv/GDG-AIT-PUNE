@@ -26,9 +26,7 @@ export function SlideCard({ accent, badge, heading, statement, className }: Slid
             {badge}
           </span>
 
-          <span className="mt-4 block text-heading-xl" style={{ fontSize: "clamp(3.25rem, 1.75rem + 7vw, 9.5rem)" }}>
-            {heading}
-          </span>
+          <span className="mt-4 block text-heading-xl">{heading}</span>
 
           <p className="mx-auto mt-8 max-w-[50ch] text-heading-sm text-fg-muted">{statement}</p>
 
