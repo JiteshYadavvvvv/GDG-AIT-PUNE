@@ -9,15 +9,26 @@ interface PanelStageProps {
   panels: [ReactNode, ReactNode, ReactNode];
 }
 
+// Real CSS classes (not JS-computed inline styles) for the static layout, so `100vh` stays a
+// live unit that tracks viewport/resize correctly instead of whatever px value GSAP's .set()
+// happened to compute at mount. Only applied via classList inside the matchMedia branch below —
+// never as static className — so nothing here shows up unless JS actually confirmed desktop +
+// motion-ok; a plain `lg:` class would apply even when the pin itself never activates.
+const STAGE_CLASSES = ["lg:h-screen", "lg:overflow-hidden"];
+const PANEL_CLASSES = [
+  "lg:absolute",
+  "lg:inset-0",
+  "lg:flex",
+  "lg:flex-col",
+  "lg:justify-center",
+  "lg:overflow-y-auto",
+  "lg:pt-nav",
+];
+
 // Reproduces a pinned panel swap: as the user scrolls through this stage, each panel slides
 // fully out while the next slides fully in, both visible mid-transition — like turning a page
-// rather than a normal stack of sections. Desktop + motion-ok only.
-//
-// The pinned/absolute layout is applied entirely in JS, inside the matchMedia branch, rather
-// than via static `lg:` classes — a static breakpoint class would apply even when the pin
-// itself never activates (e.g. desktop + reduced motion), stacking all three panels on top of
-// each other with nothing to separate them. The CSS default is always plain block flow, which
-// is what everything below lg (or with reduced motion) actually renders.
+// rather than a normal stack of sections. Desktop + motion-ok only; below that (or with
+// reduced motion) the panels render in plain stacked document flow instead.
 export function PanelStage({ panels }: PanelStageProps) {
   const stageRef = useRef<HTMLDivElement>(null);
   const panelRefs = useRef<Array<HTMLDivElement | null>>([]);
@@ -31,16 +42,8 @@ export function PanelStage({ panels }: PanelStageProps) {
         const stage = stageRef.current;
         if (!a || !b || !c || !stage) return;
 
-        gsap.set(stage, { height: "100vh", overflow: "hidden" });
-        gsap.set([a, b, c], {
-          position: "absolute",
-          inset: 0,
-          display: "flex",
-          flexDirection: "column",
-          justifyContent: "center",
-          overflowY: "auto",
-          paddingTop: "var(--spacing-nav)",
-        });
+        stage.classList.add(...STAGE_CLASSES);
+        for (const panel of [a, b, c]) panel.classList.add(...PANEL_CLASSES);
         gsap.set([b, c], { xPercent: 100 });
 
         const timeline = gsap.timeline({
@@ -51,6 +54,10 @@ export function PanelStage({ panels }: PanelStageProps) {
             scrub: 1,
             pin: true,
             anticipatePin: 1,
+            invalidateOnRefresh: true,
+            // Scrub follows scroll position directly, so stopping mid-drag leaves two panels
+            // half-visible. Snap settles to whichever panel was closer once scrolling stops.
+            snap: { snapTo: [0, 0.5, 1], duration: 0.4, ease: "power2.inOut" },
           },
         });
 
@@ -61,8 +68,9 @@ export function PanelStage({ panels }: PanelStageProps) {
           .to(c, { xPercent: 0, duration: 1, ease: "none" }, 1);
 
         return () => {
-          gsap.set(stage, { clearProps: "height,overflow" });
-          gsap.set([a, b, c], { clearProps: "all" });
+          stage.classList.remove(...STAGE_CLASSES);
+          for (const panel of [a, b, c]) panel.classList.remove(...PANEL_CLASSES);
+          gsap.set([a, b, c], { clearProps: "transform" });
         };
       });
     },

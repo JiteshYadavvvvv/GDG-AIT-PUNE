@@ -21,13 +21,13 @@ export function AboutPhoto() {
         />
 
         <div className="relative rounded-2xl border-4 border-ink bg-ink p-2.5 shadow-floating sm:p-3">
-          <RevealMedia direction="right" delay={0.16} distance={130} className="relative aspect-[16/10] rounded-lg">
+          <RevealMedia direction="right" delay={0.16} distance={130} className="relative aspect-[4/3] rounded-lg">
             <m.div whileHover={{ scale: 1.035 }} transition={SPRING.soft} className="relative size-full">
               <Image
                 src={community}
                 alt={about.photoAlt}
                 fill
-                sizes="(min-width: 1024px) 55vw, 100vw"
+                sizes="(min-width: 1024px) 48vw, 100vw"
                 className="object-cover"
               />
             </m.div>
