@@ -26,7 +26,7 @@ export function TeamTabs({ groups, selected, onSelect, accent }: TeamTabsProps) 
         role="tablist"
         aria-label="Team groups"
         style={accentVars(accent)}
-        className="flex flex-wrap items-center justify-center gap-1 rounded-full border-2 border-ink bg-ink p-1.5"
+        className="flex w-full max-w-full items-center justify-around gap-1 rounded-full border-2 border-ink bg-ink p-1.5 sm:w-auto lg:min-w-[55vw]"
       >
         {groups.map((group) => {
           const isActive = group === selected;
@@ -39,15 +39,15 @@ export function TeamTabs({ groups, selected, onSelect, accent }: TeamTabsProps) 
               aria-selected={isActive}
               onClick={() => onSelect(group)}
               className={cn(
-                "relative isolate rounded-full px-5 py-2.5 font-mono text-label font-semibold uppercase transition-colors duration-(--duration-base)",
-                isActive ? "text-ink" : "text-canvas/70 hover:text-canvas",
+                "relative isolate shrink-0 rounded-full px-2 py-2.5 font-mono text-[0.6rem] font-semibold whitespace-nowrap uppercase transition-colors duration-(--duration-base) sm:px-5 sm:text-label",
+                isActive ? "text-canvas underline sm:text-ink sm:no-underline" : "text-canvas/70 hover:text-canvas",
               )}
             >
               {isActive && (
                 <m.span
                   layoutId="active-team-tab"
                   transition={pillTransition}
-                  className="absolute inset-0 -z-10 rounded-full bg-(--accent)"
+                  className="absolute inset-0 -z-10 hidden rounded-full bg-(--accent) sm:block"
                 />
               )}
               {group}
