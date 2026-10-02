@@ -1,6 +1,5 @@
 import { categoryAccent, getRelatedEvents, type Event } from "@/sections/events/data";
 
-import { EventAbout } from "./event-about";
 import { EventHero } from "./event-hero";
 import { EventRelated } from "./event-related";
 
@@ -15,7 +14,6 @@ export function EventDetail({ event }: EventDetailProps) {
   return (
     <>
       <EventHero event={event} accent={accent} />
-      <EventAbout description={event.description} accent={accent} />
       <EventRelated events={related} accent={accent} />
     </>
   );

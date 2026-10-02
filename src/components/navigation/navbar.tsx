@@ -4,7 +4,7 @@ import { ChevronLeft } from "lucide-react";
 import { m, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { useCallback, useState } from "react";
+import { useState } from "react";
 
 import { Container } from "@/components/layout/container";
 import { Magnetic } from "@/components/motion/magnetic";
@@ -36,7 +36,7 @@ export function Navbar() {
 
   useMotionValueEvent(scrollY, "change", (y) => setIsScrolled(y > 24));
 
-  const closeMenu = useCallback(() => setIsMenuOpen(false), []);
+  const closeMenu = () => setIsMenuOpen(false);
   const showMenu = isMenuOpen && !isDesktop;
 
   return (
@@ -51,7 +51,11 @@ export function Navbar() {
         )}
       >
         <Container className="flex h-22 items-center justify-between gap-6 transition-[height] duration-(--duration-slow) ease-out group-data-scrolled/header:h-16">
-          <Link href="/" aria-label="GDG AIT Pune, home" className="-m-2 rounded-sm p-2">
+          <Link
+            href="/"
+            aria-label="GDG AIT Pune, home"
+            className={cn("-m-2 rounded-sm p-2", isEventDetail && "ml-1 sm:ml-3")}
+          >
             <Logo />
           </Link>
 
@@ -60,7 +64,7 @@ export function Navbar() {
               href="/#events"
               aria-label="Back to events"
               data-cursor="button"
-              className="grid size-11 place-items-center rounded-full border border-line text-ink transition-colors duration-(--duration-base) hover:bg-sunken"
+              className="mr-1 grid size-11 place-items-center rounded-full border border-line text-ink transition-colors duration-(--duration-base) hover:bg-sunken sm:mr-3"
             >
               <ChevronLeft className="size-5" />
             </Link>
