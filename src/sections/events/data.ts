@@ -20,6 +20,8 @@ export interface Event {
   description: string;
   eligibility: string;
   image: StaticImageData;
+  venue?: string;
+  registrationUrl?: string;
 }
 
 export const categoryAccent: Record<EventCategory, Accent> = {
@@ -63,8 +65,9 @@ export const events: Event[] = [
       "A celebration of open source software — contributing to meaningful projects while learning industry-standard tools like Git and GitHub, and building a professional portfolio along the way.",
     eligibility: "Open to all",
     image: syntax,
+    venue: "Manekshaw Hall",
   },
-  
+
   {
     slug: "flutter-workshop",
     name: "Flutter Workshop",
@@ -100,3 +103,26 @@ export const events: Event[] = [
     image: hacktoberfest,
   },
 ];
+
+export function getEventBySlug(slug: string): Event | undefined {
+  return events.find((event) => event.slug === slug);
+}
+
+export function isPastEvent(event: Event): boolean {
+  const parsed = new Date(event.monthYear);
+  if (Number.isNaN(parsed.getTime())) return true;
+
+  const endOfMonth = new Date(parsed.getFullYear(), parsed.getMonth() + 1, 0);
+  return endOfMonth.getTime() < Date.now();
+}
+
+export function getRelatedEvents(slug: string, count = 3): Event[] {
+  const current = getEventBySlug(slug);
+  if (!current) return [];
+
+  const others = events.filter((event) => event.slug !== slug);
+  const sameCategory = others.filter((event) => event.category === current.category);
+  const rest = others.filter((event) => event.category !== current.category);
+
+  return [...sameCategory, ...rest].slice(0, count);
+}

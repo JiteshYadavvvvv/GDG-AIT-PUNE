@@ -1,7 +1,9 @@
 "use client";
 
+import { ChevronLeft } from "lucide-react";
 import { m, useMotionValueEvent, useScroll, useTransform } from "motion/react";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { useCallback, useState } from "react";
 
 import { Container } from "@/components/layout/container";
@@ -21,6 +23,9 @@ import { MobileMenu } from "./mobile-menu";
 const sectionIds = mainNav.map((item) => item.href.split("#")[1] ?? "");
 
 export function Navbar() {
+  const pathname = usePathname();
+  const isEventDetail = pathname?.startsWith("/events/") ?? false;
+
   const [isScrolled, setIsScrolled] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const isDesktop = useMediaQuery(MEDIA.up("lg"));
@@ -50,16 +55,29 @@ export function Navbar() {
             <Logo />
           </Link>
 
-          <DesktopLinks activeId={activeId} />
+          {isEventDetail ? (
+            <Link
+              href="/#events"
+              aria-label="Back to events"
+              data-cursor="button"
+              className="grid size-11 place-items-center rounded-full border border-line text-ink transition-colors duration-(--duration-base) hover:bg-sunken"
+            >
+              <ChevronLeft className="size-5" />
+            </Link>
+          ) : (
+            <>
+              <DesktopLinks activeId={activeId} />
 
-          <div className="flex items-center gap-2">
-            <Magnetic className="hidden lg:inline-flex">
-              <ButtonLink href={joinLink.href} accent="green">
-                {joinLink.label}
-              </ButtonLink>
-            </Magnetic>
-            <MenuButton isOpen={showMenu} onToggle={() => setIsMenuOpen((open) => !open)} />
-          </div>
+              <div className="flex items-center gap-2">
+                <Magnetic className="hidden lg:inline-flex">
+                  <ButtonLink href={joinLink.href} accent="green">
+                    {joinLink.label}
+                  </ButtonLink>
+                </Magnetic>
+                <MenuButton isOpen={showMenu} onToggle={() => setIsMenuOpen((open) => !open)} />
+              </div>
+            </>
+          )}
         </Container>
 
         <m.div
@@ -69,7 +87,7 @@ export function Navbar() {
         />
       </div>
 
-      <MobileMenu isOpen={showMenu} onClose={closeMenu} activeId={activeId} />
+      {!isEventDetail && <MobileMenu isOpen={showMenu} onClose={closeMenu} activeId={activeId} />}
     </header>
   );
 }
