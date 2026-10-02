@@ -8,24 +8,23 @@ import { EventGallery } from "./event-gallery";
 
 export function Events() {
   return (
-    <Section id="events" accent="red" className="py-16 lg:py-24">
+    <Section id="events" accent="green" className="py-16 lg:py-24">
       <Container>
         <div aria-hidden className="flex items-center justify-center gap-2">
-          <span className="size-1.5 bg-red" />
-          <span className="block h-0.5 w-14 bg-red" />
-          <span className="size-1.5 bg-red" />
+          <span className="size-1.5 bg-green" />
+          <span className="block h-0.5 w-14 bg-green" />
+          <span className="size-1.5 bg-green" />
         </div>
 
         <RevealText delay={0.05} className="mt-4 text-center text-heading-xl">
-          Our Events
+          Our <span className="text-green-strong [text-shadow:0.04em_0.04em_0.09em_var(--color-green)]">Events</span>
         </RevealText>
 
         <RevealFade delay={0.1} className="mx-auto mt-6 max-w-2xl text-center text-body text-fg-muted">
-          A look at the hackathons, workshops, and study jams GDG AIT Pune has run — real teams, real projects, real
-          Google technologies.
+          Hackathons, workshops, and study jams — real teams, real projects, real Google technologies.
         </RevealFade>
 
-        <div className="mt-12 lg:mt-16">
+        <div className="mt-16 lg:mt-20">
           <EventGallery events={events} />
         </div>
       </Container>

@@ -9,8 +9,8 @@ export interface NavItem {
 export const mainNav: NavItem[] = [
   { label: "About", href: "/#about", accent: "blue" },
   { label: "Events", href: "/#events", accent: "red" },
-  { label: "Projects", href: "/#projects", accent: "yellow" },
   { label: "Team", href: "/#team", accent: "green" },
+  { label: "Projects", href: "/#projects", accent: "yellow" },
   { label: "Community", href: "/#community", accent: "blue" },
 ];
 
