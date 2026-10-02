@@ -31,6 +31,14 @@ export function RevealFade({ children, className, delay = 0 }: RevealFadeProps) 
             y: 0,
             duration: DURATION.slow,
             delay,
+            // clearProps: once settled, GSAP would otherwise leave an inline
+            // `transform: translate(0px, 0px)` on the element permanently. That's visually a
+            // no-op, but any transform value other than `none` creates a new CSS stacking
+            // context — which silently breaks paint order against stacking-context-forming
+            // siblings elsewhere on the page (e.g. an `opacity < 1` background layer painting
+            // over content that should be on top of it). Dropping the inline style once the
+            // animation is done removes that side effect entirely.
+            clearProps: "transform",
             scrollTrigger: { trigger: ref.current, start: "top 90%", once: true },
           },
         );
