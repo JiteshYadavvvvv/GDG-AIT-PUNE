@@ -14,11 +14,11 @@ export const mainNav: NavItem[] = [
   { label: "Community", href: "/#community", accent: "blue" },
 ];
 
-export const joinLink = { label: "Join the community", href: "/#community" };
+export const joinLink = { label: "Collaborate", href: "https://forms.gle/Ctrntqzq9KQZy9EL9" };
 
 export const collaborateLink = {
   label: "Collaborate with us",
-  href: "https://forms.gle/nCqwFKEs4zEgFtBd8",
+  href: "https://forms.gle/Ctrntqzq9KQZy9EL9",
 };
 
 export const socialLinks = [
