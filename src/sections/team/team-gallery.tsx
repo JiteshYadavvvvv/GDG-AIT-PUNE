@@ -19,7 +19,7 @@ export function TeamGallery() {
     <div>
       <TeamTabs groups={teamGroups.map((item) => item.name)} selected={selected} onSelect={setSelected} accent="green" />
 
-      <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10">
+      <div className="mt-12 flex flex-wrap justify-center gap-x-8 gap-y-14 lg:gap-x-10">
         {group.members.map((member, index) => (
           <TeamCard
             key={member.slug}
@@ -27,6 +27,7 @@ export function TeamGallery() {
             accent={accents[index % accents.length]!}
             delay={(index % 8) * 0.06}
             rotation={ROTATIONS[index % ROTATIONS.length]}
+            className="w-full shrink-0 sm:w-[calc(50%-1rem)] lg:w-[calc(33.333%-1.667rem)]"
           />
         ))}
       </div>
