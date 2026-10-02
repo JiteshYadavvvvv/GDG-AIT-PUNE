@@ -4,11 +4,11 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { mainNav } from "@/data/navigation";
 import { formatIndex } from "@/lib/utils/format";
 
-const CHAPTERS_BEFORE = 4;
+const CHAPTERS_BEFORE = 5;
 
 export function PlaceholderSections() {
   return mainNav
-    .filter((item) => item.href !== "/#about" && item.href !== "/#events")
+    .filter((item) => item.href !== "/#about" && item.href !== "/#events" && item.href !== "/#team")
     .map((item, index) => (
       <Section key={item.href} id={item.href.split("#")[1]} accent={item.accent} className="py-24 md:py-32">
         <Container className="flex flex-wrap items-baseline justify-between gap-6">
