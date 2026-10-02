@@ -4,6 +4,7 @@ import type { Accent } from "@/config/brand";
 
 import enlivenHackathon from "./assets/enliven-hackathon.webp";
 import flutterWorkshop from "./assets/flutter-workshop.webp";
+import syntax from "./assets/syntax.png";
 import googleSolutions from "./assets/google-solutions.webp";
 import hacktoberfest from "./assets/hacktoberfest.jpg";
 import mlStudyJam from "./assets/ml-study-jam.jpg";
@@ -51,6 +52,19 @@ export const events: Event[] = [
     eligibility: "Open to all",
     image: googleSolutions,
   },
+  
+  {
+    slug: "syntax",
+    name: "SYNTAX",
+    category: "Community Event",
+    date: "Aug 2025",
+    monthYear: "Oct 2025",
+    description:
+      "A celebration of open source software — contributing to meaningful projects while learning industry-standard tools like Git and GitHub, and building a professional portfolio along the way.",
+    eligibility: "Open to all",
+    image: syntax,
+  },
+  
   {
     slug: "flutter-workshop",
     name: "Flutter Workshop",
@@ -62,17 +76,7 @@ export const events: Event[] = [
     eligibility: "Open to all",
     image: flutterWorkshop,
   },
-  {
-    slug: "hacktoberfest",
-    name: "Hacktober Fest",
-    category: "Community Event",
-    date: "5 October 2025",
-    monthYear: "Oct 2025",
-    description:
-      "A celebration of open source software — contributing to meaningful projects while learning industry-standard tools like Git and GitHub, and building a professional portfolio along the way.",
-    eligibility: "Open to all",
-    image: hacktoberfest,
-  },
+  
   {
     slug: "ml-study-jam",
     name: "ML Study Jam",
@@ -83,5 +87,16 @@ export const events: Event[] = [
       "A collaborative, hands-on study jam building real machine learning models with industry-standard tools like TensorFlow and Kaggle — from first principles to a working portfolio project.",
     eligibility: "Open to all",
     image: mlStudyJam,
+  },
+  {
+    slug: "hacktoberfest",
+    name: "Hacktober Fest",
+    category: "Community Event",
+    date: "5 October 2025",
+    monthYear: "Oct 2025",
+    description:
+      "A celebration of open source software — contributing to meaningful projects while learning industry-standard tools like Git and GitHub, and building a professional portfolio along the way.",
+    eligibility: "Open to all",
+    image: hacktoberfest,
   },
 ];
