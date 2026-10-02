@@ -1,10 +1,7 @@
 import type { StaticImageData } from "next/image";
 
 import aayushKumar from "./assets/aayush-kumar.jpg";
-import abrishAditya from "./assets/abrish-aditya.png";
 import adityaSingh from "./assets/aditya-singh.jpeg";
-import ajaySingh from "./assets/ajay-singh.png";
-import ankitKumarSingh from "./assets/ankit-kumar-singh.png";
 import arshiaGarg from "./assets/arshia-garg.jpg";
 import arunKumarKushwaha from "./assets/arun-kumar-kushwaha.jpg";
 import ashutoshSingh from "./assets/ashutosh-singh.png";
@@ -12,15 +9,10 @@ import divyanshiChoudhary from "./assets/divyanshi-choudhary.jpeg";
 import divyanshuRai from "./assets/divyanshu-rai.jpeg";
 import gauravKumar from "./assets/gaurav-kumar.jpg";
 import gouravSingh from "./assets/gourav-singh.png";
-import kavyaChauhan from "./assets/kavya-chauhan.png";
-import kumariLadli from "./assets/kumari-ladli.png";
 import nikhilDhariwal from "./assets/nikhil-dhariwal.png";
-import nikitaKumari from "./assets/nikita-kumari.jpg";
 import nishantSingh from "./assets/nishant-singh.jpg";
 import pavanKumar from "./assets/pavan-kumar.jpeg";
-import prikshitSharma from "./assets/prikshit-sharma.png";
 import rishabhKumar from "./assets/rishabh-kumar.jpg";
-import sahilKamate from "./assets/sahil-kamate.png";
 import sanshey from "./assets/sanshey.jpg";
 import srijanTripathi from "./assets/srijan-tripathi.jpeg";
 import sumitNath from "./assets/sumit-nath.jpg";
