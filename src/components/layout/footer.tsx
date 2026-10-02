@@ -1,79 +1,158 @@
-import type { ReactNode } from "react";
+import { ArrowUpRight, Mail } from "lucide-react";
+import type { ComponentType, SVGProps } from "react";
 
+import { RevealFade } from "@/components/motion/reveal-fade";
 import { ButtonLink } from "@/components/ui/button";
 import { GdgMark } from "@/components/ui/gdg-mark";
+import { accentVars, accents, type Accent } from "@/config/brand";
 import { address, collaborateLink, mainNav, socialLinks } from "@/data/navigation";
-import { cn } from "@/lib/utils/cn";
-import { formatIndex } from "@/lib/utils/format";
 import { externalLinkProps } from "@/lib/utils/links";
 
 import { BackToTop } from "./back-to-top";
 import { Container } from "./container";
+import { GithubIcon, InstagramIcon, LinkedinIcon } from "./footer-icons";
 
 const year = new Date().getFullYear();
 
+const instagram = socialLinks.find((link) => link.label === "Instagram");
+const linkedin = socialLinks.find((link) => link.label === "LinkedIn");
+
+const GITHUB_ORG_URL = "https://github.com/GDG-AIT-PUNE";
+const GITHUB_STAR_URL = "https://github.com/JiteshYadavvvvv";
+
+interface ContactLink {
+  label: string;
+  href: string;
+  icon: ComponentType<SVGProps<SVGSVGElement>>;
+}
+
+const contactLinks: ContactLink[] = [
+  { label: "Email", href: "mailto:gdsc.ait.26@gmail.com", icon: Mail },
+  ...(linkedin ? [{ label: "LinkedIn", href: linkedin.href, icon: LinkedinIcon }] : []),
+  ...(instagram ? [{ label: "Instagram", href: instagram.href, icon: InstagramIcon }] : []),
+  { label: "GitHub", href: GITHUB_ORG_URL, icon: GithubIcon },
+];
+
 export function Footer() {
   return (
-    <footer className="relative border-t border-line bg-surface">
-      <Container className="grid gap-x-8 gap-y-16 pt-16 pb-14 md:pt-24 lg:grid-cols-12">
-        <div className="lg:col-span-6">
-          <GdgMark label="Google Developer Groups" className="h-9 w-auto md:h-11" />
-          <p className="mt-8 max-w-[14ch] text-heading-lg">Google Developer Groups on Campus</p>
-          <p className="mt-4 text-lead text-fg-muted">Army Institute of Technology, Pune</p>
-          <ButtonLink href={collaborateLink.href} variant="secondary" accent="green" className="mt-10">
-            {collaborateLink.label}
-          </ButtonLink>
-        </div>
+    <footer className="relative overflow-hidden bg-[#080808] text-white">
+      <div
+        aria-hidden
+        className="pointer-events-none absolute inset-0 opacity-[0.06]"
+        style={{
+          backgroundImage: "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.9) 1px, transparent 0)",
+          backgroundSize: "28px 28px",
+        }}
+      />
 
-        <div className="grid grid-cols-2 gap-x-8 gap-y-12 sm:grid-cols-3 lg:col-span-6">
-          <FooterColumn title="Explore">
-            {mainNav.map((item, index) => (
-              <li key={item.href}>
-                <a href={item.href} className="group flex items-baseline gap-2.5">
-                  <span className="font-mono text-caption text-fg-subtle">{formatIndex(index)}</span>
-                  <span className="link-underline">{item.label}</span>
-                </a>
-              </li>
-            ))}
-          </FooterColumn>
+      <RevealFade>
+        <Container className="relative grid gap-14 pt-20 pb-16 lg:grid-cols-12 lg:gap-8">
+          <div className="lg:col-span-5">
+            <div className="relative inline-block">
+              <div aria-hidden className="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-lg bg-blue" />
+              <div className="relative flex size-14 items-center justify-center rounded-lg border-2 border-white/15 bg-white">
+                <GdgMark label="GDG AIT Pune" className="h-7 w-auto" />
+              </div>
+            </div>
 
-          <FooterColumn title="Connect">
-            {socialLinks.map((link) => (
-              <li key={link.href}>
-                <a href={link.href} className="link-underline" {...externalLinkProps(link.href)}>
-                  {link.label}
-                </a>
-              </li>
-            ))}
-          </FooterColumn>
+            <p className="mt-6 text-heading-sm font-black tracking-tight text-white uppercase">GDG AIT Pune</p>
+            <p className="mt-1.5 font-mono text-caption tracking-wide text-white/35 uppercase">{address[0]}</p>
+            <p className="mt-4 max-w-[26ch] text-small text-white/50">
+              Learn together. Build together. Grow together.
+            </p>
 
-          <FooterColumn title="Visit" className="col-span-2 sm:col-span-1">
-            {address.map((line) => (
-              <li key={line} className="text-fg-muted">
-                {line}
-              </li>
-            ))}
-          </FooterColumn>
-        </div>
+            <div className="mt-7 flex flex-wrap items-center gap-3">
+              {contactLinks.map((link, index) => (
+                <FooterIconButton key={link.label} link={link} accent={accents[index % accents.length]!} />
+              ))}
+            </div>
+
+            <a
+              href={GITHUB_STAR_URL}
+              {...externalLinkProps(GITHUB_STAR_URL)}
+              className="group mt-6 inline-flex items-center gap-1.5 font-mono text-caption text-white/40 transition-colors duration-(--duration-base) hover:text-white"
+            >
+              Star us on GitHub
+              <ArrowUpRight className="size-3 transition-transform duration-(--duration-base) ease-out group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </a>
+          </div>
+
+          <div className="lg:col-span-3 lg:col-start-7">
+            <div className="flex items-center gap-2.5">
+              <span aria-hidden className="h-px w-5 bg-white/20" />
+              <p className="font-mono text-label tracking-[0.2em] text-white/35 uppercase">Navigation</p>
+            </div>
+
+            <ul className="mt-6 space-y-3.5">
+              {mainNav.map((item) => (
+                <li key={item.href}>
+                  <a
+                    href={item.href}
+                    style={accentVars(item.accent)}
+                    className="group inline-flex items-center gap-2 text-lead font-semibold text-white/80 transition-colors duration-(--duration-base) hover:text-white"
+                  >
+                    <span
+                      aria-hidden
+                      className="size-1 scale-0 rounded-full bg-(--accent) transition-transform duration-(--duration-base) ease-out group-hover:scale-100"
+                    />
+                    {item.label}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div className="flex flex-col items-start gap-5 lg:col-span-3 lg:col-start-10 lg:items-end">
+            <BackToTop />
+
+            <div className="max-w-xs rounded-xl border border-white/10 bg-white/3 p-5 lg:text-right">
+              <p className="font-mono text-small text-white/55">
+                Want to collaborate with us? Just fill out the form.
+              </p>
+              <ButtonLink href={collaborateLink.href} variant="secondary" size="md" className="mt-4">
+                {collaborateLink.label}
+              </ButtonLink>
+            </div>
+          </div>
+        </Container>
+      </RevealFade>
+
+      <Container className="relative">
+        <div aria-hidden className="border-t border-white/10" />
       </Container>
 
-      <Container>
-        <div className="flex flex-wrap items-center justify-between gap-4 border-t border-line py-6 font-mono text-label text-fg-subtle">
-          <p>© {year} GDG on Campus AIT Pune</p>
-          <BackToTop />
-        </div>
+      <Container className="relative py-6">
+        <p className="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-caption tracking-wide text-white/35 uppercase">
+          <span>
+            © {year} GDG AIT Pune
+          </span>
+          <span aria-hidden className="size-1 rounded-full bg-white/20" />
+          <span>Made with love by the GDG AIT Pune community</span>
+        </p>
       </Container>
 
-      <div aria-hidden className="bg-spectrum h-1.5" />
+      <div aria-hidden className="bg-spectrum h-1" />
     </footer>
   );
 }
 
-function FooterColumn({ title, className, children }: { title: string; className?: string; children: ReactNode }) {
+function FooterIconButton({ link, accent }: { link: ContactLink; accent: Accent }) {
+  const Icon = link.icon;
+
   return (
-    <div className={cn("text-small", className)}>
-      <h2 className="font-mono text-label text-fg-subtle">{title}</h2>
-      <ul className="mt-5 space-y-3">{children}</ul>
+    <div style={accentVars(accent)} className="group relative">
+      <div
+        aria-hidden
+        className="absolute inset-0 translate-x-1 translate-y-1 rounded-md bg-white/15 transition-[background-color,translate] duration-(--duration-base) ease-out group-hover:translate-x-1.5 group-hover:translate-y-1.5 group-hover:bg-(--accent)"
+      />
+      <a
+        href={link.href}
+        {...externalLinkProps(link.href)}
+        aria-label={link.label}
+        className="relative grid size-10 place-items-center rounded-md border-2 border-white/15 bg-white text-ink transition-transform duration-(--duration-base) ease-out group-hover:-translate-y-1"
+      >
+        <Icon className="size-4.5" />
+      </a>
     </div>
   );
 }
