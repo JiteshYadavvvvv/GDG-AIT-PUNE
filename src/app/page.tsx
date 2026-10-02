@@ -5,11 +5,10 @@ import { About } from "@/sections/about/about";
 import { Mission } from "@/sections/about/mission";
 import { PanelStage } from "@/sections/about/panel-stage";
 import { Vision } from "@/sections/about/vision";
+import { Community } from "@/sections/community/community";
 import { Events } from "@/sections/events/events";
 import { Projects } from "@/sections/projects/projects";
 import { Team } from "@/sections/team/team";
-
-import { PlaceholderSections } from "./_preview/placeholder-sections";
 
 export const metadata: Metadata = {
   robots: { index: false, follow: false },
@@ -23,7 +22,7 @@ export default function Home() {
       <Events />
       <Team />
       <Projects />
-      <PlaceholderSections />
+      <Community />
     </>
   );
 }
