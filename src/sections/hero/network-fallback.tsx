@@ -12,7 +12,6 @@ import { GdgMark } from "@/components/ui/gdg-mark";
 import { brandHex, inkHex } from "@/config/brand";
 import { cn } from "@/lib/utils/cn";
 
-// Rendered on the server. Draws itself in with CSS on first paint, then the live scene fades in over it.
 export function NetworkFallback() {
   return (
     <div data-hero-fallback className="absolute inset-0">
@@ -27,7 +26,6 @@ const LANE_DELAY = 250;
 function NetworkDrawing({ layout, className }: { layout: NetworkLayout; className: string }) {
   const lanes = buildLanes(layout);
   const { width, height } = layout.frame;
-  // One world unit in CSS pixels, matching `meet` (and the 3D camera's fit).
   const unit = `min(100vw / ${width}, 100svh / ${height})`;
   const [mergeX, mergeY] = projectToFrame(new Vector3(...layout.merge), layout);
   const [endX, endY] = projectToFrame(new Vector3(...layout.mainLineEnd), layout);

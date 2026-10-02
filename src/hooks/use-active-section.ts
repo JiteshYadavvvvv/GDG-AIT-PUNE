@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from "react";
 
-/** Id of the section under a line a quarter of the way down the viewport. Pass a stable array. */
 export function useActiveSection(ids: string[]) {
   const [activeId, setActiveId] = useState<string | null>(null);
 

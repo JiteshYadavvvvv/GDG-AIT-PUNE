@@ -34,7 +34,6 @@ export function Lanes({ lanes, layout, frame }: LanesProps) {
 function LaneTube({ lane, frame }: { lane: Lane; frame: RefObject<NetworkFrame> }) {
   const mesh = useRef<Mesh>(null);
 
-  // The bundled shape is a morph target, so scrolling only changes one uniform.
   const geometry = useMemo(() => {
     const tube = new TubeGeometry(lane.spread, SEGMENTS, RADIUS, RADIAL_SEGMENTS);
     const bundled = new TubeGeometry(lane.bundled, SEGMENTS, RADIUS, RADIAL_SEGMENTS);

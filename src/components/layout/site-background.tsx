@@ -1,6 +1,5 @@
 import { Container } from "./container";
 
-// Static on purpose: paper grain plus guides on the content edges.
 export function SiteBackground() {
   return (
     <div aria-hidden className="pointer-events-none fixed inset-0 -z-10">

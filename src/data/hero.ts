@@ -6,5 +6,4 @@ export const hero = {
   cta: { label: "Explore the community", href: "/#about" },
 };
 
-// Tracks the chapter runs; they label nodes in the hero network.
 export const technologies = ["AI / ML", "Android", "Web", "Flutter", "Cloud", "Web3", "UI / UX"];

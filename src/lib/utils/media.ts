@@ -1,4 +1,3 @@
-// Mirrors --breakpoint-* in styles/theme.css (px).
 export const BREAKPOINTS = {
   xs: 375,
   sm: 430,

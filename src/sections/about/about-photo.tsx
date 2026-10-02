@@ -9,8 +9,6 @@ import { SPRING } from "@/lib/animations/tokens";
 import community from "./assets/community.jpg";
 import { about } from "./data";
 
-// Treated as a physical object on the page: a dark bezel frame (never touched by GSAP) with a
-// blue offset panel behind it, holding the photo, which is the one animated piece here.
 export function AboutPhoto() {
   return (
     <figure className="relative">

@@ -15,14 +15,11 @@ export function useSceneQuality() {
 }
 
 export interface SceneCanvasProps extends Omit<CanvasProps, "dpr" | "frameloop" | "gl"> {
-  /** False while offscreen. */
   active?: boolean;
-  /** False for static scenes; they render on invalidate() only. */
   animate?: boolean;
   gl?: Omit<WebGLRendererParameters, "canvas">;
 }
 
-// Loaded through LazyScene only.
 export default function SceneCanvas({
   active = true,
   animate = true,

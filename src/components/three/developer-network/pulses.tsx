@@ -21,7 +21,6 @@ const spread = new Vector3();
 const bundled = new Vector3();
 const color = new Color();
 
-// Small bright points travelling along each lane into the merge point.
 export function Pulses({ lanes, frame, perLane }: PulsesProps) {
   const mesh = useRef<InstancedMesh>(null);
   const count = lanes.length * perLane;
@@ -44,7 +43,6 @@ export function Pulses({ lanes, frame, perLane }: PulsesProps) {
       const lane = lanes[laneIndex]!;
       const slot = Math.floor(i / lanes.length);
       const travel = (current.time * SPEED + slot / perLane + laneIndex * 0.21) % 1;
-      // Start just before the first commit, where the lane enters the screen.
       const start = (lane.commits[0] ?? 0.4) - 0.06;
       const u = start + travel * (1 - start);
 

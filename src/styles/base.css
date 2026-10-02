@@ -36,13 +36,11 @@
     outline-offset: 3px;
   }
 
-  /* The custom cursor replaces the native one only where it shows a label. */
   .has-custom-cursor :is([data-cursor="view"], [data-cursor="view"] *) {
     cursor: none;
   }
 }
 
-/* Hide scroll-reveal targets until GSAP takes over. No JS or reduced motion: always visible. */
 @media (scripting: enabled) and (prefers-reduced-motion: no-preference) {
   [data-reveal="text"] {
     visibility: hidden;

@@ -23,8 +23,6 @@ export function About() {
         <div className="mt-12 flex flex-col gap-12 lg:mt-10 lg:grid lg:grid-cols-12 lg:items-start lg:gap-x-10">
           <div className="lg:col-span-5">
             <div className="relative">
-              {/* Decorative comma marks live outside RevealSlide's own overflow-hidden clip,
-                  otherwise they'd be cut off since they intentionally extend past its box. */}
               <span
                 aria-hidden
                 className="pointer-events-none absolute -top-8 -left-4 font-serif text-[4.5rem] leading-none text-blue/25 select-none"

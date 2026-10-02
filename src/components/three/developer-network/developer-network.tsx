@@ -15,13 +15,10 @@ import { bundleAmount, buildLanes, cameraFor, layoutFor } from "./layout";
 import { Pulses } from "./pulses";
 
 export interface NetworkInput {
-  /** Scroll progress through the hero, 0–1. */
   scroll: number;
-  /** Mouse position in the viewport, -1 to 1. */
   pointerX: number;
   pointerY: number;
   hasPointer: boolean;
-  /** Set once the live scene has replaced the static drawing. */
   active: boolean;
 }
 
@@ -57,7 +54,6 @@ export default function DeveloperNetwork({ input }: { input: RefObject<NetworkIn
     time: 0,
   });
 
-  // Runs before the layers so they all read the same values this frame.
   useFrame((state, delta) => {
     const current = frame.current;
     const { scroll, pointerX, pointerY, hasPointer, active } = input.current;
@@ -66,7 +62,6 @@ export default function DeveloperNetwork({ input }: { input: RefObject<NetworkIn
 
     if (!reducedMotion) current.time += delta;
     current.merge = MathUtils.damp(current.merge, scroll, 5, delta);
-    // Reduced motion renders on demand, so nothing can ease in: show everything at once.
     current.activity = reducedMotion ? 1 : MathUtils.damp(current.activity, active ? 1 : 0, 2, delta);
     current.pointerStrength = MathUtils.damp(current.pointerStrength, followPointer ? 1 : 0, 3, delta);
     current.pointerX = MathUtils.damp(current.pointerX, pointerX, 4, delta);

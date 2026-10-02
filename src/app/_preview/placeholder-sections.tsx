@@ -4,11 +4,8 @@ import { SectionLabel } from "@/components/ui/section-label";
 import { mainNav } from "@/data/navigation";
 import { formatIndex } from "@/lib/utils/format";
 
-// About now has a real implementation (Stage 3: About/Vision/Mission), so it's dropped here.
-// The other three chapters (About/Vision/Mission) come first in the page, hence the offset.
 const CHAPTERS_BEFORE = 3;
 
-// Anchor targets for the navigation until the remaining sections exist.
 export function PlaceholderSections() {
   return mainNav
     .filter((item) => item.href !== "/#about")

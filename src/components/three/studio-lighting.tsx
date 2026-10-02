@@ -5,12 +5,10 @@ import { ContactShadows, Environment, Lightformer } from "@react-three/drei";
 import { inkHex } from "@/config/brand";
 
 interface StudioLightingProps {
-  /** Y position of the contact-shadow plane. */
   floor?: number;
   shadow?: boolean;
 }
 
-// Lightformers stand in for an HDR, so nothing is downloaded.
 export function StudioLighting({ floor = -1.4, shadow = true }: StudioLightingProps) {
   return (
     <>

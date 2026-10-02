@@ -7,7 +7,6 @@ import { MEDIA } from "@/lib/utils/media";
 
 interface ParallaxProps {
   children: ReactNode;
-  /** Travel as a fraction of the element's height. Negative moves against the scroll. */
   speed?: number;
   className?: string;
 }

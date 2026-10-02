@@ -10,10 +10,8 @@ import { MEDIA } from "@/lib/utils/media";
 
 const DeveloperNetwork = lazy(() => import("@/components/three/developer-network/developer-network"));
 
-// Length of the static drawing's entrance; the live scene waits for it to finish.
 const DRAWING_MS = 1900;
 
-// Without WebGL the drawing zooms instead: slide its hub to the centre, where the camera would end.
 function offsetToCentre(svg: Element) {
   const hub = svg.querySelector("[data-hub]")?.getBoundingClientRect();
   if (!hub || hub.width === 0) return { x: 0, y: 0 };

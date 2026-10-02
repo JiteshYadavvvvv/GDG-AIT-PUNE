@@ -6,24 +6,17 @@ type Point = [number, number, number];
 
 export interface NetworkLayout {
   orientation: "landscape" | "portrait";
-  /** World units always kept in view, centred on the origin. */
   frame: { width: number; height: number };
-  /** Camera distance at rest. */
   distance: number;
   merge: Point;
   mainLineEnd: Point;
-  /** `commits` are positions along each lane (0–1) that get a node. */
   lanes: { accent: Accent; points: Point[]; commits: number[] }[];
-  /** Commits that carry a technology label, in the order of `technologies` in data/hero. */
   labels: { lane: number; u: number }[];
-  /** Camera position at the end of the scroll, relative to the merge point. */
   cameraEnd: Point;
 }
 
-/** Diameter of the GDG hub at the merge point, in world units. */
 export const HUB_SIZE = 0.95;
 
-// Measured against the hero copy: lanes stay in the gaps between the text blocks.
 export const landscapeLayout: NetworkLayout = {
   orientation: "landscape",
   frame: { width: 12, height: 9 },
@@ -64,7 +57,6 @@ export const landscapeLayout: NetworkLayout = {
   cameraEnd: [-2.6, 0.2, 4.6],
 };
 
-// Phones and portrait tablets: the copy sits on top, the network gets the lower part of the screen.
 export const portraitLayout: NetworkLayout = {
   orientation: "portrait",
   frame: { width: 6, height: 12.8 },
@@ -81,7 +73,6 @@ export const portraitLayout: NetworkLayout = {
   cameraEnd: [0, 1.2, 6.2],
 };
 
-/** Eased scroll progress: how far the lanes have pulled into one bundle. */
 export function bundleAmount(merge: number) {
   return merge * merge * (3 - 2 * merge);
 }
@@ -90,7 +81,6 @@ export function layoutFor(aspect: number) {
   return aspect >= 1 ? landscapeLayout : portraitLayout;
 }
 
-/** Fits the frame on whichever axis is tighter; the static drawing uses the same rule. */
 export function cameraFor(layout: NetworkLayout, aspect: number) {
   const visibleHeight = Math.max(layout.frame.height, layout.frame.width / aspect);
   const fov = MathUtils.radToDeg(2 * Math.atan(visibleHeight / 2 / layout.distance));
@@ -101,7 +91,6 @@ export interface Lane {
   accent: Accent;
   commits: number[];
   spread: CatmullRomCurve3;
-  /** Same lane pulled into a tight bundle; the scroll blends towards it. */
   bundled: CatmullRomCurve3;
 }
 
@@ -111,7 +100,6 @@ export function buildLanes(layout: NetworkLayout): Lane[] {
   return layout.lanes.map((lane, index) => {
     const offset = (index - (layout.lanes.length - 1) / 2) * 0.16;
     const spread = [...lane.points.map((point) => new Vector3(...point)), merge.clone()];
-    // Lanes that enter from the side bundle horizontally; ones from the top or bottom, vertically.
     const fromSide = Math.abs(spread[0]!.x - merge.x) > Math.abs(spread[0]!.y - merge.y);
     const bundled = spread.map((point, i) => {
       if (i === spread.length - 1) return point.clone();
@@ -129,7 +117,6 @@ export function buildLanes(layout: NetworkLayout): Lane[] {
   });
 }
 
-/** Where a point lands at the resting camera, in world units from the centre (y down). */
 export function projectToFrame(point: Vector3, layout: NetworkLayout): [number, number] {
   const scale = layout.distance / (layout.distance - point.z);
   return [point.x * scale, -point.y * scale];

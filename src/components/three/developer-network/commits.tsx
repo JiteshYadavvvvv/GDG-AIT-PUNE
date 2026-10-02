@@ -56,12 +56,10 @@ export function Commits({ lanes, frame }: CommitsProps) {
       const h = MathUtils.damp(hover.current[i] ?? 0, proximity, 6, delta);
       hover.current[i] = h;
 
-      // Lean towards the pointer and lift out of the plane.
       position.x += (current.pointer.x - position.x) * 0.14 * h;
       position.y += (current.pointer.y - position.y) * 0.14 * h;
       position.z += 0.35 * h;
 
-      // Shrink as the lanes bundle so the rings don't crowd each other.
       const size = 1 - amount * 0.4;
 
       dummy.position.copy(position);

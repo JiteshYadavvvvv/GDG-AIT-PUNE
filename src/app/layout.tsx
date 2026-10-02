@@ -12,7 +12,6 @@ import { Providers } from "./providers";
 
 import "./globals.css";
 
-// No metric overrides exist for these families yet, so no adjusted fallback.
 const googleSansFlex = Google_Sans_Flex({
   subsets: ["latin"],
   variable: "--font-google-sans-flex",

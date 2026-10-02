@@ -9,18 +9,11 @@ import { cn } from "@/lib/utils/cn";
 
 import community from "./assets/community.png";
 
-// Entrances are CSS (they run at first paint); the scroll timeline in hero-stage moves the wrappers.
 export function HeroCopy() {
   const [firstLine, secondLine] = hero.headline;
 
   return (
     <div className="relative z-10 flex h-full flex-col pt-[calc(var(--spacing-nav)+clamp(1.25rem,5vh,4rem))] pb-[clamp(1.5rem,6vh,3.5rem)]">
-      {/*
-        Sized in three overlapping segments instead of one linear vw clamp: a single rate can't
-        serve both the tight 1024–1280px range (where it was crowding the CTA) and ultra-wide
-        monitors (where a flat max-width looked stuck and small) at once. Each segment keeps the
-        image at roughly the same 34–36% share of the viewport as it grows.
-      */}
       <div
         data-hero-footer
         aria-hidden
@@ -37,7 +30,6 @@ export function HeroCopy() {
         <h1
           id="hero-title"
           className="mt-[clamp(1.5rem,8vh,5.5rem)] text-display"
-          // Capped below the display token so the headline keeps clear of the network on wide screens.
           style={{ fontSize: "clamp(3.25rem, 1.5rem + 8.2vw, 9.5rem)" }}
         >
           <HeadlineLine index={1} delay={240}>
@@ -69,7 +61,6 @@ export function HeroCopy() {
   );
 }
 
-// G / D / G in the brand colours, one solid hue each — the only coloured letters in the wordmark.
 const GDG_LETTER_COLORS = ["text-red", "text-blue", "text-green"];
 
 function GdgWordmark({ word }: { word: string }) {
@@ -84,7 +75,6 @@ function GdgWordmark({ word }: { word: string }) {
   );
 }
 
-// Mask › scroll layer › entrance layer, so the CSS entrance and the GSAP scroll never share a transform.
 function HeadlineLine({
   index,
   delay,
@@ -107,7 +97,6 @@ function HeadlineLine({
   );
 }
 
-// The closing full stop is drawn as a commit node, kept on the same line as the last word.
 function LastLine({ text }: { text: string }) {
   const words = text.replace(/\.$/, "").split(" ");
   const lastWord = words.pop();
@@ -127,7 +116,6 @@ function LastLine({ text }: { text: string }) {
   );
 }
 
-// Revealed at the end of the scroll: under the GDG hub, or above it in portrait where the main line runs down.
 function HeroIdentity() {
   return (
     <div
@@ -136,7 +124,6 @@ function HeroIdentity() {
       className={cn(
         "invisible absolute inset-x-0 top-1/2 isolate mt-[clamp(6.5rem,17vh,10rem)] px-gutter text-center",
         "portrait:top-auto portrait:bottom-1/2 portrait:mt-0 portrait:mb-[clamp(6rem,13vh,9rem)]",
-        // Paper halo keeps the text clear of any lane passing behind it.
         "before:absolute before:inset-x-[8%] before:-inset-y-10 before:-z-10 before:bg-[radial-gradient(closest-side,var(--color-canvas)_55%,transparent)]",
       )}
     >

@@ -1,7 +1,5 @@
-/* Scroll-driven stories only exist with JS and motion allowed; otherwise layouts stay static. */
 @custom-variant cinematic (@media (scripting: enabled) and (prefers-reduced-motion: no-preference));
 
-/* The four-colour rule used by the scrollbar, scroll progress and footer. */
 @utility bg-spectrum {
   background-image: linear-gradient(
     90deg,
@@ -30,10 +28,6 @@
   background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .08 0 0 0 0 .07 0 0 0 0 .05 0 0 0 1.4 -.35'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
 }
 
-/*
- * Underline that draws in from the left and leaves to the right; works across wrapped lines.
- * Set --link-baseline to keep a faint line at rest.
- */
 @utility link-underline {
   background-image:
     linear-gradient(currentColor, currentColor),

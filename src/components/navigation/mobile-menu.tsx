@@ -37,7 +37,6 @@ export function MobileMenu({ isOpen, onClose, activeId }: MobileMenuProps) {
     };
   }, [isOpen, lenis, onClose]);
 
-  // Unlock scrolling before the anchor click is handled.
   function handleLinkClick() {
     lenis?.start();
     onClose();

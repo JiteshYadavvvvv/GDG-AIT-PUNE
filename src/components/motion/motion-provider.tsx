@@ -8,7 +8,6 @@ import { DURATION, EASE } from "@/lib/animations/tokens";
 const loadFeatures = () =>
   import("@/lib/animations/motion-features").then((mod) => mod.default);
 
-// Strict LazyMotion: use `m.div`, not `motion.div`.
 export function MotionProvider({ children }: { children: ReactNode }) {
   return (
     <MotionConfig

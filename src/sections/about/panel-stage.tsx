@@ -10,26 +10,9 @@ interface PanelStageProps {
 }
 
 
-// Only overflow-x needs hiding — it's what keeps the horizontally xPercent-translated
-// off-stage panels from poking out sideways during the slide. overflow-y is deliberately
-// left alone (not "hidden"): a blanket overflow-hidden here would also hard-clip any
-// vertical overflow from a panel's own content (e.g. a badge/card sitting a few px past the
-// stage's h-screen box), with no visible fallback. Per the CSS overflow spec, pairing
-// overflow-x: hidden with no overflow-y declaration computes overflow-y to `auto`, so any
-// vertical excess becomes a scrollbar instead of invisible clipping.
 const STAGE_CLASSES = ["lg:h-screen", "lg:overflow-x-hidden"];
-// The panel is just a viewport-sized, nav-offset slot — it does NOT center its content itself
-// (that's each panel's own <Section fill> doing `lg:h-full lg:flex lg:justify-center-safe`
-// internally). Centering at this level, one wrapper up from the section, would leave the
-// section's own box short and vertically floating inside the panel instead of spanning it —
-// which is what put the section's top-boundary seam line adrift in the middle of the screen
-// instead of at the panel's actual top edge.
 const PANEL_CLASSES = ["lg:absolute", "lg:inset-0", "lg:overflow-y-auto", "lg:pt-nav"];
 
-// Once pinned, every panel sits at inset:0 — identical getBoundingClientRect() regardless of
-// which one is actually showing. Anchor-link scrolling (smooth-scroll.tsx) can't tell panels
-// apart from their rect alone, so it looks this id up via ScrollTrigger.getById() and computes
-// the real target from the pin's own start/end instead.
 export const PANEL_GROUP_ID = "about-panel-stage";
 
 

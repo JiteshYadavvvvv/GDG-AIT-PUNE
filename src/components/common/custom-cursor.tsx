@@ -8,10 +8,6 @@ import { FOLLOW, SPRING } from "@/lib/animations/tokens";
 import { cn } from "@/lib/utils/cn";
 import { MEDIA } from "@/lib/utils/media";
 
-/*
- * Opt in with data-cursor="link" | "button" | "view" | "interactive" and an optional
- * data-cursor-label. Links, buttons and form fields are detected automatically.
- */
 type CursorState = "default" | "link" | "button" | "view" | "interactive" | "text";
 
 const CURSOR_STATES: CursorState[] = ["default", "link", "button", "view", "interactive", "text"];
@@ -74,7 +70,6 @@ function CursorFollower() {
       }
       pointerX.set(event.clientX);
       pointerY.set(event.clientY);
-      // Don't sweep in from the corner on the first move.
       if (!hasMoved.current) {
         x.jump(event.clientX);
         y.jump(event.clientY);

@@ -8,11 +8,6 @@ import { Container } from "./container";
 interface SectionProps extends ComponentProps<"section"> {
   accent?: Accent;
   seam?: boolean;
-  /** For a section rendered as a pinned PanelStage panel: makes the section itself stretch to
-   * the panel's full height and center its own children, instead of being a content-sized box
-   * that an ancestor centers as a whole. Without this, the section's own top/bottom (and so
-   * the seam below, which is positioned relative to it) land wherever the centered content
-   * happens to sit rather than at the panel's actual top/bottom edge. */
   fill?: boolean;
 }
 
@@ -32,7 +27,6 @@ export function Section({ accent = "blue", seam = true, fill = false, className,
   );
 }
 
-// Hairline across the page with nodes where it meets the background guides.
 function SectionSeam({ accent }: { accent: Accent }) {
   return (
     <div aria-hidden className="absolute inset-x-0 top-0 border-t border-line">

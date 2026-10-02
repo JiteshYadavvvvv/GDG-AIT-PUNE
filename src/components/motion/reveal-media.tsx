@@ -12,10 +12,8 @@ type RevealDirection = "up" | "left" | "right";
 interface RevealMediaProps {
   children: ReactNode;
   className?: string;
-  /** Which side the media travels in from. Defaults to a bottom-up entrance. */
   direction?: RevealDirection;
   delay?: number;
-  /** How far outside its final position the media starts, in px. */
   distance?: number;
 }
 
@@ -24,11 +22,6 @@ function fromVars(direction: RevealDirection, distance: number) {
   return { x: direction === "left" ? -distance : distance };
 }
 
-/**
- * A real clipped slide reveal for media: the outer wrapper masks (overflow-hidden, never
- * moves) while the inner content physically travels in from outside it — the same
- * architecture as RevealSlide, sized to fill its box so `next/image fill` still resolves.
- */
 export function RevealMedia({
   children,
   className,
@@ -53,8 +46,6 @@ export function RevealMedia({
             opacity: 1,
             duration: DURATION.slower,
             delay,
-            // power3.out (not expo.out): a gentler, more evenly-paced deceleration so the
-            // travel reads as a visible slide rather than a near-instant snap-then-settle.
             ease: EASE.standard.gsap,
             scrollTrigger: { trigger: wrapperRef.current, start: "top 80%", once: true },
           },

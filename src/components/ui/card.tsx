@@ -12,7 +12,6 @@ interface CardProps {
   meta?: string;
   accent?: Accent;
   className?: string;
-  /** Aspect ratio of the media, e.g. "aspect-square" for posters. */
   mediaClassName?: string;
 }
 

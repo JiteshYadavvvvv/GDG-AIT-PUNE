@@ -47,7 +47,6 @@ function ButtonContent({ variant, size, children }: { variant: Variant; size: Si
 
   return (
     <>
-      {/* Grows out of the icon to fill the button. */}
       <span
         aria-hidden
         className={cn(

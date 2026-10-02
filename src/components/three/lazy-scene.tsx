@@ -13,16 +13,10 @@ const SceneCanvas = dynamic(() => import("./scene-canvas"), { ssr: false });
 
 export interface LazySceneProps extends Omit<SceneCanvasProps, "active"> {
   className?: string;
-  /** Static stand-in until WebGL is ready, or if it fails. */
   fallback?: ReactNode;
-  /** Only if the scene carries meaning; otherwise it's aria-hidden. */
   label?: string;
 }
 
-/**
- * Loads three.js when the scene nears the viewport and pauses it offscreen.
- * Load the scene contents with React.lazy too, so three stays out of section bundles.
- */
 export function LazyScene({
   className,
   fallback = null,
@@ -58,7 +52,6 @@ export function LazyScene({
   );
 }
 
-// Keeps a WebGL failure from taking the page down.
 class SceneErrorBoundary extends Component<
   { children: ReactNode; onError: () => void },
   { failed: boolean }

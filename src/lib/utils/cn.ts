@@ -1,8 +1,6 @@
 import { clsx, type ClassValue } from "clsx";
 import { extendTailwindMerge } from "tailwind-merge";
 
-// Custom theme names from styles/theme.css. Without these, cn("text-display", "text-fg")
-// treats text-display as a colour and drops it.
 const twMerge = extendTailwindMerge({
   extend: {
     theme: {

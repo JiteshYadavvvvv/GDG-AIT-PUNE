@@ -1,4 +1,3 @@
-// Mirrors --ease-* and --duration-* in styles/theme.css.
 
 export const EASE = {
   out: { bezier: [0.16, 1, 0.3, 1], gsap: "expo.out" },
@@ -20,7 +19,6 @@ export const SPRING = {
   soft: { type: "spring", visualDuration: 0.6, bounce: 0.1 },
 } as const;
 
-// Physics springs for values that follow the pointer.
 export const FOLLOW = {
   cursor: { stiffness: 700, damping: 50, mass: 0.5 },
   magnetic: { stiffness: 260, damping: 16, mass: 0.6 },

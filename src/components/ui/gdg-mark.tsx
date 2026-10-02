@@ -1,11 +1,9 @@
 import type { SVGProps } from "react";
 
 interface GdgMarkProps extends SVGProps<SVGSVGElement> {
-  /** Omit when the mark sits next to visible text. */
   label?: string;
 }
 
-// Official GDG mark. Keep the paths and colours as supplied.
 export function GdgMark({ label, ...props }: GdgMarkProps) {
   return (
     <svg
