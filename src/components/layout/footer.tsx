@@ -57,8 +57,10 @@ export function Footer() {
 
             <p className="mt-6 text-heading-sm font-black tracking-tight text-white uppercase">GDG AIT Pune</p>
             <p className="mt-1.5 font-mono text-caption tracking-wide text-white/35 uppercase">{address[0]}</p>
-            <p className="mt-4 max-w-[26ch] text-small text-white/50">
-              Learn together. Build together. Grow together.
+            <p className="mt-4 max-w-[22ch] text-small text-white/50">
+              Learn together. Build together.
+              <br />
+              Grow together.
             </p>
 
             <div className="mt-7 flex flex-wrap items-center gap-3">
@@ -105,9 +107,11 @@ export function Footer() {
           <div className="flex flex-col items-start gap-5 lg:col-span-3 lg:col-start-10 lg:items-end">
             <BackToTop />
 
-            <div className="max-w-xs rounded-xl border border-white/10 bg-white/3 p-5 lg:text-right">
+            <div className="flex max-w-xl flex-col items-center rounded-xl border border-white/10 bg-white/3 p-5 text-center">
               <p className="font-mono text-small text-white/55">
-                Want to collaborate with us? Just fill out the form.
+                Wanna collaborate with us?
+                <br />
+                Just fill out the form.
               </p>
               <ButtonLink href={collaborateLink.href} variant="secondary" size="md" className="mt-4">
                 {collaborateLink.label}
@@ -122,12 +126,12 @@ export function Footer() {
       </Container>
 
       <Container className="relative py-6">
-        <p className="flex flex-wrap items-center gap-x-2.5 gap-y-1 font-mono text-caption tracking-wide text-white/35 uppercase">
+        <p className="flex flex-wrap items-center justify-center gap-x-2.5 gap-y-1 font-mono text-caption tracking-wide text-white/35 uppercase">
           <span>
             © {year} GDG AIT Pune
           </span>
           <span aria-hidden className="size-1 rounded-full bg-white/20" />
-          <span>Made with love by the GDG AIT Pune community</span>
+          <span>Made with ♡ by the GDG AIT Pune</span>
         </p>
       </Container>
 
