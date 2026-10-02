@@ -18,19 +18,13 @@ interface PanelStageProps {
 // overflow-x: hidden with no overflow-y declaration computes overflow-y to `auto`, so any
 // vertical excess becomes a scrollbar instead of invisible clipping.
 const STAGE_CLASSES = ["lg:h-screen", "lg:overflow-x-hidden"];
-// justify-center-safe (not justify-center): if a panel's content ever exceeds the pinned
-// 100vh box, plain `center` overflows symmetrically — including past the top edge. The
-// `-safe` variant falls back to start-alignment once content overflows, so any excess spills
-// downward into the panel's own scrollable area instead of off the top.
-const PANEL_CLASSES = [
-  "lg:absolute",
-  "lg:inset-0",
-  "lg:flex",
-  "lg:flex-col",
-  "lg:justify-center-safe",
-  "lg:overflow-y-auto",
-  "lg:pt-nav",
-];
+// The panel is just a viewport-sized, nav-offset slot — it does NOT center its content itself
+// (that's each panel's own <Section fill> doing `lg:h-full lg:flex lg:justify-center-safe`
+// internally). Centering at this level, one wrapper up from the section, would leave the
+// section's own box short and vertically floating inside the panel instead of spanning it —
+// which is what put the section's top-boundary seam line adrift in the middle of the screen
+// instead of at the panel's actual top edge.
+const PANEL_CLASSES = ["lg:absolute", "lg:inset-0", "lg:overflow-y-auto", "lg:pt-nav"];
 
 // Once pinned, every panel sits at inset:0 — identical getBoundingClientRect() regardless of
 // which one is actually showing. Anchor-link scrolling (smooth-scroll.tsx) can't tell panels

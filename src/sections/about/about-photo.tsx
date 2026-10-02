@@ -35,7 +35,10 @@ export function AboutPhoto() {
         </div>
       </div>
 
-      
+      <figcaption className="mt-4 flex items-center gap-2 pl-1 font-mono text-caption text-fg-subtle">
+        <span aria-hidden className="h-px w-5 bg-line-strong" />
+        {about.photoCaption}
+      </figcaption>
     </figure>
   );
 }
