@@ -5,6 +5,7 @@ import { About } from "@/sections/about/about";
 import { Mission } from "@/sections/about/mission";
 import { PanelStage } from "@/sections/about/panel-stage";
 import { Vision } from "@/sections/about/vision";
+import { Events } from "@/sections/events/events";
 
 import { PlaceholderSections } from "./_preview/placeholder-sections";
 
@@ -17,6 +18,7 @@ export default function Home() {
     <>
       <Hero />
       <PanelStage panels={[<About key="about" />, <Vision key="vision" />, <Mission key="mission" />]} />
+      <Events />
       <PlaceholderSections />
     </>
   );
