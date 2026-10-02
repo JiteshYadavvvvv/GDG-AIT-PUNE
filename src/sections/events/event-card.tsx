@@ -20,6 +20,7 @@ export function EventCard({ event, delay = 0, className }: EventCardProps) {
         meta={`${event.category} · ${event.monthYear}`}
         accent={categoryAccent[event.category]}
         className="h-full"
+        mediaClassName="aspect-square"
       />
     </RevealFade>
   );

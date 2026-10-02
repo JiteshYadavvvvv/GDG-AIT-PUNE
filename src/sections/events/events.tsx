@@ -8,7 +8,7 @@ import { EventGallery } from "./event-gallery";
 
 export function Events() {
   return (
-    <Section id="events" accent="red">
+    <Section id="events" accent="red" className="py-16 lg:py-24">
       <Container>
         <div aria-hidden className="flex items-center justify-center gap-2">
           <span className="size-1.5 bg-red" />
