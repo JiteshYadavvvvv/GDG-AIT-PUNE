@@ -31,8 +31,8 @@ const contactLinks: ContactLink[] = [
 
 export function CommunityPanel() {
   return (
-    <RevealFade delay={0.2} className="relative mx-auto mt-14 max-w-5xl rotate-[-0.5deg]">
-      <div aria-hidden className="bg-spectrum absolute inset-0 translate-x-5 translate-y-5 rounded-2xl border-2 border-ink" />
+    <RevealFade delay={0.2} className="relative mx-auto mt-14 max-w-5xl rotate-[-0.5deg] max-sm:mr-3">
+      <div aria-hidden className="bg-spectrum absolute inset-0 translate-x-3 translate-y-3 rounded-2xl border-2 border-ink sm:translate-x-5 sm:translate-y-5" />
 
       <div className="relative grid gap-8 rounded-2xl border-2 border-ink bg-surface px-8 py-10 sm:px-12 sm:py-12 lg:grid-cols-[1.3fr_1fr] lg:grid-rows-[auto_auto_auto] lg:gap-x-12 lg:gap-y-8 lg:px-14 lg:py-14">
         <div className="order-1 lg:order-none lg:col-start-1 lg:row-span-3 lg:row-start-1 lg:self-center">
