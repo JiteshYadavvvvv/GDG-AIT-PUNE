@@ -1,6 +1,5 @@
 import { Container } from "@/components/layout/container";
 import { Section } from "@/components/layout/section";
-import { RevealFade } from "@/components/motion/reveal-fade";
 import { RevealText } from "@/components/motion/reveal-text";
 
 import { TeamGallery } from "./team-gallery";
@@ -15,17 +14,12 @@ export function Team() {
           <span className="size-1.5 bg-green" />
         </div>
 
-        <RevealText delay={0.05} className="mt-4 text-center text-heading-xl">
-          Meet the{" "}
+        <RevealText delay={0.05} className="mt-4 text-center text-heading-xl font-black uppercase">
+          Meet Our{" "}
           <span className="text-green-strong [text-shadow:0.04em_0.04em_0.09em_var(--color-green)]">Team</span>
         </RevealText>
 
-        <RevealFade delay={0.1} className="mx-auto mt-6 max-w-2xl text-center text-body text-fg-muted">
-          Students who organize events, mentor peers, explore new technologies, and help each other learn and build —
-          this is who makes GDG AIT Pune happen.
-        </RevealFade>
-
-        <div className="mt-16 lg:mt-20">
+        <div className="mt-14 lg:mt-16">
           <TeamGallery />
         </div>
       </Container>

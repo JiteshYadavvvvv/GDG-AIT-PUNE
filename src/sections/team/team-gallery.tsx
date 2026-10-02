@@ -8,7 +8,7 @@ import { teamGroups, type TeamGroupName } from "./data";
 import { TeamCard } from "./team-card";
 import { TeamTabs } from "./team-tabs";
 
-const ROTATIONS = [-2, 1.5, -1, 2, -1.5, 1];
+const ROTATIONS = [-0.75, 0.5, -0.5, 0.75, -0.5, 0.5];
 const DEFAULT_GROUP: TeamGroupName = "Leads & Domain Heads";
 
 export function TeamGallery() {
@@ -19,7 +19,7 @@ export function TeamGallery() {
     <div>
       <TeamTabs groups={teamGroups.map((item) => item.name)} selected={selected} onSelect={setSelected} accent="green" />
 
-      <div className="mt-12 grid grid-cols-2 gap-x-6 gap-y-14 sm:grid-cols-3 lg:grid-cols-4 lg:gap-x-10">
+      <div className="mt-12 grid grid-cols-1 gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3 lg:gap-x-10">
         {group.members.map((member, index) => (
           <TeamCard
             key={member.slug}

@@ -46,17 +46,17 @@ export function TeamCard({ member, accent, delay = 0, rotation = 0, className }:
             )}
           </div>
 
-          <div className="relative aspect-[4/5] overflow-hidden border-b-2 border-ink bg-sunken">
+          <div className="relative aspect-[5/4] overflow-hidden border-b-2 border-ink bg-sunken">
             <Image
               src={member.image}
               alt={member.name}
               fill
-              sizes="(min-width: 1024px) 300px, (min-width: 640px) 45vw, 90vw"
+              sizes="(min-width: 1024px) 380px, (min-width: 640px) 45vw, 90vw"
               className="object-cover object-top transition-transform duration-(--duration-slower) ease-out group-hover:scale-[1.04]"
             />
           </div>
 
-          <div className="flex flex-1 flex-col justify-center gap-0.5 px-4 py-4">
+          <div className="flex flex-1 flex-col items-center justify-center gap-0.5 px-4 py-4 text-center">
             <h3 className="text-heading-sm font-bold text-ink transition-colors duration-(--duration-base) group-hover:text-(--accent-strong)">
               {member.name}
             </h3>
