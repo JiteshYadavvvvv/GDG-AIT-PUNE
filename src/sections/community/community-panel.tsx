@@ -14,7 +14,7 @@ const instagram = socialLinks.find((link) => link.label === "Instagram")!;
 const linkedin = socialLinks.find((link) => link.label === "LinkedIn")!;
 
 const GITHUB_ORG_URL = "https://github.com/GDG-AIT-PUNE";
-const GITHUB_STAR_URL = "https://github.com/JiteshYadavvvvv";
+const GITHUB_STAR_URL = "https://github.com/JiteshYadavvvvv/GDG-AIT-PUNE";
 
 interface ContactLink {
   label: string;
