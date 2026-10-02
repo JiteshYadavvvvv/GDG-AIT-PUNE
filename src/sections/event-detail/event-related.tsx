@@ -18,21 +18,19 @@ export function EventRelated({ events, accent }: EventRelatedProps) {
   return (
     <Section accent={accent} className="py-16 lg:py-20">
       <Container>
-        <div className="px-3 lg:px-6">
-          <RevealText delay={0.05} className="text-heading-lg font-bold">
-            More events
-          </RevealText>
+        <RevealText delay={0.05} className="text-heading-lg font-bold">
+          More events
+        </RevealText>
 
-          <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
-            {events.map((event, index) => (
-              <EventCard
-                key={event.slug}
-                event={event}
-                delay={index * 0.08}
-                rotation={ROTATIONS[index % ROTATIONS.length]}
-              />
-            ))}
-          </div>
+        <div className="mt-10 grid grid-cols-1 gap-x-10 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
+          {events.map((event, index) => (
+            <EventCard
+              key={event.slug}
+              event={event}
+              delay={index * 0.08}
+              rotation={ROTATIONS[index % ROTATIONS.length]}
+            />
+          ))}
         </div>
       </Container>
     </Section>

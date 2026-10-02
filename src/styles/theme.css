@@ -104,7 +104,7 @@
   --container-content: 84rem;
   --container-wide: 100rem;
 
-  --spacing-gutter: clamp(1rem, 0.5rem + 2.5vw, 3.5rem);
+  --spacing-gutter: clamp(1.125rem, 0.75rem + 2.75vw, 4rem);
   --spacing-section: clamp(5rem, 3rem + 10vw, 14rem);
   --spacing-nav: 4.5rem;
 
