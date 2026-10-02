@@ -39,6 +39,16 @@ const DOTS = [
   { color: "var(--color-green)", x: -1, y: 0 },
 ];
 
+const TRAIL_COLORS = ["var(--color-blue)", "var(--color-red)", "var(--color-yellow)", "var(--color-green)"];
+const TRAIL_MAX_AGE_MS = 220;
+const TRAIL_FADE_DELAY_MS = 150;
+
+interface TrailPoint {
+  x: number;
+  y: number;
+  t: number;
+}
+
 export function CustomCursor() {
   const hasMouse = useMediaQuery(MEDIA.finePointer);
   const reducedMotion = usePrefersReducedMotion();
@@ -54,6 +64,11 @@ function CursorFollower() {
   const y = useSpring(pointerY, FOLLOW.cursor);
   const hasMoved = useRef(false);
 
+  const trailPolylineRef = useRef<SVGPolylineElement>(null);
+  const trailGradientRef = useRef<SVGLinearGradientElement>(null);
+  const trailPointsRef = useRef<TrailPoint[]>([]);
+  const trailFadeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
   const [state, setState] = useState<CursorState>("default");
   const [label, setLabel] = useState("");
   const [isVisible, setIsVisible] = useState(false);
@@ -63,9 +78,15 @@ function CursorFollower() {
     const root = document.documentElement;
     root.classList.add("has-custom-cursor");
 
+    function clearTrail() {
+      trailPointsRef.current = [];
+      trailPolylineRef.current?.removeAttribute("points");
+    }
+
     function handlePointerMove(event: PointerEvent) {
       if (event.pointerType !== "mouse") {
         setIsVisible(false);
+        clearTrail();
         return;
       }
       pointerX.set(event.clientX);
@@ -76,6 +97,32 @@ function CursorFollower() {
         hasMoved.current = true;
       }
       setIsVisible(true);
+
+      const now = performance.now();
+      const points = trailPointsRef.current;
+      points.push({ x: event.clientX, y: event.clientY, t: now });
+      while (points[0] && now - points[0].t > TRAIL_MAX_AGE_MS) points.shift();
+
+      const polyline = trailPolylineRef.current;
+      if (polyline) {
+        polyline.setAttribute("points", points.map((point) => `${point.x},${point.y}`).join(" "));
+        polyline.style.opacity = "1";
+      }
+
+      const first = points[0];
+      const last = points[points.length - 1];
+      const gradient = trailGradientRef.current;
+      if (gradient && first && last && points.length > 1) {
+        gradient.setAttribute("x1", String(first.x));
+        gradient.setAttribute("y1", String(first.y));
+        gradient.setAttribute("x2", String(last.x));
+        gradient.setAttribute("y2", String(last.y));
+      }
+
+      if (trailFadeTimeout.current) clearTimeout(trailFadeTimeout.current);
+      trailFadeTimeout.current = setTimeout(() => {
+        if (trailPolylineRef.current) trailPolylineRef.current.style.opacity = "0";
+      }, TRAIL_FADE_DELAY_MS);
     }
 
     function handlePointerOver(event: PointerEvent) {
@@ -84,7 +131,10 @@ function CursorFollower() {
       setLabel(target.label);
     }
 
-    const hide = () => setIsVisible(false);
+    const hide = () => {
+      setIsVisible(false);
+      clearTrail();
+    };
     const press = () => setIsPressed(true);
     const release = () => setIsPressed(false);
 
@@ -101,6 +151,7 @@ function CursorFollower() {
       root.removeEventListener("pointerleave", hide);
       window.removeEventListener("pointerdown", press);
       window.removeEventListener("pointerup", release);
+      if (trailFadeTimeout.current) clearTimeout(trailFadeTimeout.current);
     };
   }, [pointerX, pointerY, x, y]);
 
@@ -108,54 +159,75 @@ function CursorFollower() {
   const radius = DOT_RADIUS[state];
 
   return (
-    <m.div
-      aria-hidden
-      style={{ x, y }}
-      animate={{ opacity: isVisible ? 1 : 0 }}
-      className="pointer-events-none fixed top-0 left-0 z-(--z-cursor)"
-    >
-      <m.div
-        animate={{
-          width: ring.size,
-          height: ring.size,
-          backgroundColor: ring.fill,
-          borderColor: ring.border,
-          scale: isPressed ? 0.85 : 1,
-        }}
-        transition={SPRING.snappy}
-        className="absolute grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border"
-      >
-        <AnimatePresence>
-          {label && (
-            <m.span
-              key={label}
-              initial={{ scale: 0.4, opacity: 0 }}
-              animate={{ scale: 1, opacity: 1 }}
-              exit={{ scale: 0.4, opacity: 0 }}
-              className={cn("font-mono text-label", state === "view" ? "text-canvas" : "text-ink")}
-            >
-              {label}
-            </m.span>
-          )}
-        </AnimatePresence>
-      </m.div>
+    <>
+      <svg aria-hidden className="pointer-events-none fixed inset-0 z-(--z-cursor) size-full overflow-visible">
+        <defs>
+          <linearGradient ref={trailGradientRef} id="cursor-trail-gradient" gradientUnits="userSpaceOnUse">
+            {TRAIL_COLORS.map((color, index) => (
+              <stop key={color} offset={`${(index / (TRAIL_COLORS.length - 1)) * 100}%`} stopColor={color} />
+            ))}
+          </linearGradient>
+        </defs>
+        <polyline
+          ref={trailPolylineRef}
+          fill="none"
+          stroke="url(#cursor-trail-gradient)"
+          strokeWidth={1.5}
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          className="opacity-0 transition-opacity duration-300 ease-out"
+        />
+      </svg>
 
       <m.div
-        animate={{ rotate: state === "link" || state === "interactive" ? 45 : 0 }}
-        transition={SPRING.soft}
-        className="absolute"
+        aria-hidden
+        style={{ x, y }}
+        animate={{ opacity: isVisible ? 1 : 0 }}
+        className="pointer-events-none fixed top-0 left-0 z-(--z-cursor)"
       >
-        {DOTS.map((dot) => (
-          <m.span
-            key={dot.color}
-            animate={{ x: dot.x * radius, y: dot.y * radius, scale: state === "text" ? 0 : 1 }}
-            transition={SPRING.snappy}
-            style={{ backgroundColor: dot.color }}
-            className="absolute size-1 -translate-x-1/2 -translate-y-1/2 rounded-full"
-          />
-        ))}
+        <m.div
+          animate={{
+            width: ring.size,
+            height: ring.size,
+            backgroundColor: ring.fill,
+            borderColor: ring.border,
+            scale: isPressed ? 0.85 : 1,
+          }}
+          transition={SPRING.snappy}
+          className="absolute grid -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border"
+        >
+          <AnimatePresence>
+            {label && (
+              <m.span
+                key={label}
+                initial={{ scale: 0.4, opacity: 0 }}
+                animate={{ scale: 1, opacity: 1 }}
+                exit={{ scale: 0.4, opacity: 0 }}
+                className={cn("font-mono text-label", state === "view" ? "text-canvas" : "text-ink")}
+              >
+                {label}
+              </m.span>
+            )}
+          </AnimatePresence>
+        </m.div>
+
+        <m.div
+          animate={{ rotate: state === "link" || state === "interactive" ? 45 : 0 }}
+          transition={SPRING.soft}
+          className="absolute"
+        >
+          {DOTS.map((dot) => (
+            <m.span
+              key={dot.color}
+              animate={{ x: dot.x * radius, y: dot.y * radius, scale: state === "text" ? 0 : 1 }}
+              transition={SPRING.snappy}
+              style={{ backgroundColor: dot.color }}
+              className="absolute size-1 -translate-x-1/2 -translate-y-1/2 rounded-full"
+            />
+          ))}
+        </m.div>
       </m.div>
-    </m.div>
+    </>
   );
 }
 
