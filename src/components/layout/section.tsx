@@ -33,9 +33,9 @@ function SectionSeam({ accent }: { accent: Accent }) {
       <Container className="relative">
         <span
           style={accentVars(accent)}
-          className="absolute top-0 left-gutter size-[7px] -translate-x-1/2 -translate-y-1/2 bg-(--accent)"
+          className="absolute top-0 left-[calc(var(--spacing-gutter)/2)] size-[7px] -translate-x-1/2 -translate-y-1/2 bg-(--accent)"
         />
-        <span className="absolute top-0 right-gutter size-[7px] translate-x-1/2 -translate-y-1/2 border border-line-strong bg-canvas" />
+        <span className="absolute top-0 right-[calc(var(--spacing-gutter)/2)] size-[7px] translate-x-1/2 -translate-y-1/2 border border-line-strong bg-canvas" />
       </Container>
     </div>
   );
