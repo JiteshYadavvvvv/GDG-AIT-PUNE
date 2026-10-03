@@ -11,7 +11,7 @@ function resolveSiteUrl() {
 export const siteConfig = {
   name: "GDG AIT",
   fullName: "Google Developer Groups on Campus — Army Institute of Technology, Pune",
-  description: "Google Developer Groups on Campus at Army Institute of Technology, Pune.",
+  description: "Tech-driven student community focused on learning, building, and solving real-world challenges.",
   url: resolveSiteUrl(),
   locale: "en_IN",
   themeColor: paperHex,

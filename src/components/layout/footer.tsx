@@ -5,6 +5,7 @@ import { RevealFade } from "@/components/motion/reveal-fade";
 import { ButtonLink } from "@/components/ui/button";
 import { GdgMark } from "@/components/ui/gdg-mark";
 import { accentVars, accents, type Accent } from "@/config/brand";
+import { siteConfig } from "@/config/site";
 import { address, collaborateLink, mainNav, socialLinks } from "@/data/navigation";
 import { externalLinkProps } from "@/lib/utils/links";
 
@@ -48,20 +49,21 @@ export function Footer() {
       <RevealFade>
         <Container className="relative grid gap-14 pt-20 pb-16 lg:grid-cols-12 lg:gap-8">
           <div className="lg:col-span-5">
-            <div className="relative inline-block">
-              <div aria-hidden className="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-lg bg-blue" />
-              <div className="relative flex size-14 items-center justify-center rounded-lg border-2 border-white/15 bg-white">
-                <GdgMark label="GDG AIT Pune" className="h-7 w-auto" />
+            <div className="flex items-center gap-4">
+              <div className="relative inline-block shrink-0">
+                <div aria-hidden className="absolute inset-0 translate-x-1.5 translate-y-1.5 rounded-lg bg-blue" />
+                <div className="relative flex size-14 items-center justify-center rounded-lg border-2 border-white/15 bg-white">
+                  <GdgMark label="GDG AIT Pune" className="h-7 w-auto" />
+                </div>
+              </div>
+
+              <div>
+                <p className="text-heading-sm font-black tracking-tight text-white uppercase">GDG AIT Pune</p>
+                <p className="mt-1 font-mono text-caption tracking-wide text-white/35 uppercase">{address[0]}</p>
               </div>
             </div>
 
-            <p className="mt-6 text-heading-sm font-black tracking-tight text-white uppercase">GDG AIT Pune</p>
-            <p className="mt-1.5 font-mono text-caption tracking-wide text-white/35 uppercase">{address[0]}</p>
-            <p className="mt-4 max-w-[22ch] text-small text-white/50">
-              Learn together. Build together.
-              <br />
-              Grow together.
-            </p>
+            <p className="mt-4 max-w-sm text-small text-white/50">{siteConfig.description}</p>
 
             <div className="mt-7 flex flex-wrap items-center gap-3">
               {contactLinks.map((link, index) => (
@@ -79,7 +81,7 @@ export function Footer() {
             </a>
           </div>
 
-          <div className="lg:col-span-3 lg:col-start-7">
+          <div className="hidden lg:col-span-3 lg:col-start-7 lg:block">
             <div className="flex items-center gap-2.5">
               <span aria-hidden className="h-px w-5 bg-white/20" />
               <p className="font-mono text-label tracking-[0.2em] text-white/35 uppercase">Navigation</p>
