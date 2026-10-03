@@ -2,10 +2,12 @@
   html {
     color-scheme: light;
     -webkit-text-size-adjust: 100%;
+    overflow-x: hidden;
   }
 
   body {
     min-height: 100dvh;
+    overflow-x: hidden;
     background-color: var(--color-canvas);
     color: var(--color-fg);
     font-family: var(--font-sans);

@@ -20,22 +20,42 @@ export function RevealText({ children, className, delay = 0 }: RevealTextProps) 
       const mm = gsap.matchMedia();
 
       mm.add(MEDIA.motionOK, () => {
-        SplitText.create(ref.current, {
-          type: "lines",
-          mask: "lines",
-          autoSplit: true,
-          onSplit(self) {
-            gsap.set(ref.current, { visibility: "visible" });
-            return gsap.from(self.lines, {
-              yPercent: 110,
-              rotate: 2,
-              duration: DURATION.slower,
-              stagger: 0.08,
-              delay,
-              scrollTrigger: { trigger: ref.current, start: "top 88%", once: true },
-            });
-          },
-        });
+        let split: SplitText | undefined;
+
+        const createSplit = () => {
+          split?.revert();
+          split = SplitText.create(ref.current, {
+            type: "lines",
+            mask: "lines",
+            autoSplit: true,
+            onSplit(self) {
+              gsap.set(ref.current, { visibility: "visible" });
+              return gsap.from(self.lines, {
+                yPercent: 110,
+                rotate: 2,
+                duration: DURATION.slower,
+                stagger: 0.08,
+                delay,
+                scrollTrigger: { trigger: ref.current, start: "top 88%", once: true },
+                onComplete() {
+                  self.lines.forEach((line) => {
+                    const mask = line.parentElement;
+                    if (mask) mask.style.overflow = "visible";
+                  });
+                },
+              });
+            },
+          });
+        };
+
+        const cs = ref.current ? getComputedStyle(ref.current) : null;
+        const fontLoad = cs
+          ? document.fonts.load(`${cs.fontWeight} ${cs.fontSize} ${cs.fontFamily}`).catch(() => {})
+          : Promise.resolve();
+
+        Promise.all([fontLoad, document.fonts.ready]).then(createSplit);
+
+        return () => split?.revert();
       });
     },
     { scope: ref },
