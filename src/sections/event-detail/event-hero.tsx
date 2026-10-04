@@ -6,7 +6,6 @@ import { RevealMedia } from "@/components/motion/reveal-media";
 import { RevealText } from "@/components/motion/reveal-text";
 import { ButtonLink } from "@/components/ui/button";
 import { accentVars, type Accent } from "@/config/brand";
-import { joinLink } from "@/data/navigation";
 import { isPastEvent, type Event } from "@/sections/events/data";
 
 interface EventHeroProps {
@@ -23,7 +22,7 @@ export function EventHero({ event, accent }: EventHeroProps) {
 
   const facts = [
     { label: "Date", value: event.date },
-    { label: "Status", value: past ? "Completed" : "Upcoming" },
+    // { label: "Status", value: past ? "Completed" : "Upcoming" },
     { label: "Eligibility", value: event.eligibility },
     ...(event.venue ? [{ label: "Venue", value: event.venue }] : []),
   ];
@@ -82,8 +81,8 @@ export function EventHero({ event, accent }: EventHeroProps) {
               </RevealFade>
 
               <RevealFade delay={0.35}>
-                <ButtonLink href={canRegister ? event.registrationUrl! : joinLink.href} accent={accent} className="mt-8">
-                  {canRegister ? "Register now" : "Join the community"}
+                <ButtonLink href={canRegister ? event.registrationUrl! : (event.joinEventUrl ?? "#")} accent={accent} className="mt-8">
+                  {canRegister ? "Register now" : "Join the Event"}
                 </ButtonLink>
               </RevealFade>
             </div>
