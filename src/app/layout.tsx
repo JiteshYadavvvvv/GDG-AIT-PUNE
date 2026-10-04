@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Google_Sans_Code, Google_Sans_Flex } from "next/font/google";
 
 import { CustomCursor } from "@/components/common/custom-cursor";
+import { Loader } from "@/components/common/loader";
 import { Footer } from "@/components/layout/footer";
 import { SiteBackground } from "@/components/layout/site-background";
 import { Navbar } from "@/components/navigation/navbar";
@@ -72,6 +73,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <Providers>
+          <Loader />
           <SiteBackground />
           <Navbar />
           <main id="main">{children}</main>
