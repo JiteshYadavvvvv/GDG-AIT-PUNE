@@ -73,7 +73,7 @@ export default function RootLayout({ children }: LayoutProps<"/">) {
           Skip to content
         </a>
         <Providers>
-          <Loader />
+          
           <SiteBackground />
           <Navbar />
           <main id="main">{children}</main>
