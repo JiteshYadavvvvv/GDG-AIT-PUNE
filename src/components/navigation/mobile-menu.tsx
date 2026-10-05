@@ -94,7 +94,7 @@ export function MobileMenu({ isOpen, onClose, activeId }: MobileMenuProps) {
               <ButtonLink href={joinLink.href} onClick={handleLinkClick} accent="green" size="lg" className="w-full justify-between">
                 {joinLink.label}
               </ButtonLink>
-              <ul className="mt-8 flex gap-6 font-mono text-label text-fg-muted">
+              <ul className="mt-8 flex items-center justify-center gap-6 font-mono text-label text-fg-muted">
                 {socialLinks.map((link) => (
                   <li key={link.href}>
                     <a href={link.href} className="link-underline" {...externalLinkProps(link.href)}>
