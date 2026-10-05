@@ -22,7 +22,9 @@ export const collaborateLink = {
 };
 
 export const socialLinks = [
+  { label: "Email", href: "mailto:gdsc.ait.26@gmail.com" },
   { label: "Instagram", href: "https://www.instagram.com/gdsc_aitpune/" },
+  { label: "Github", href: "https://github.com/GDG-AIT-PUNE"},
   { label: "LinkedIn", href: "https://www.linkedin.com/company/gdsc-aitpune/" },
 ];
 
