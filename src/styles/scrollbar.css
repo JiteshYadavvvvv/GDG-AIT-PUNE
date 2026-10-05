@@ -1,4 +1,4 @@
-@supports selector(::-webkit-scrollbar) {
+/* @supports selector(::-webkit-scrollbar) {
   html::-webkit-scrollbar {
     width: 10px;
   }
@@ -29,4 +29,12 @@
     scrollbar-width: thin;
     scrollbar-color: var(--color-blue) transparent;
   }
+} */
+
+html {
+  scrollbar-width: none;
+}
+
+*::-webkit-scrollbar {
+  display: none;
 }
