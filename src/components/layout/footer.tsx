@@ -133,7 +133,7 @@ export function Footer() {
             © {year} GDG AIT Pune
           </span>
           <span aria-hidden className="size-1 rounded-full bg-white/20" />
-          <span>Made with ♡ by the GDG AIT Pune</span>
+          <span>Made with ♡ by GDG AIT Pune</span>
         </p>
       </Container>
 

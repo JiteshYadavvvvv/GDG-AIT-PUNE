@@ -4,7 +4,7 @@
   }
 
   html::-webkit-scrollbar-track {
-    background-color: var(--color-canvas);
+    background-color: transparent;
   }
 
   html::-webkit-scrollbar-thumb {
