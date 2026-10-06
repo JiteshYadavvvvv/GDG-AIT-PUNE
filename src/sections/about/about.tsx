@@ -8,7 +8,7 @@ import { about } from "./data";
 
 export function About() {
   return (
-    <Section id="about" accent="blue" fill className="lg:py-8">
+    <Section id="about" accent="blue" fill className="lg:py-22 lg:-mt-17.5">
       <Container>
         <div aria-hidden className="flex items-center justify-center gap-2">
           <span className="size-1.5 bg-blue" />
