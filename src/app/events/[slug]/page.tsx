@@ -49,7 +49,7 @@ export async function generateMetadata({ params }: PageProps<"/events/[slug]">):
 function EventStructuredData({ event }: { event: (typeof events)[number] }) {
   const eventDate = new Date(event.date);
   const isValidDate = !Number.isNaN(eventDate.getTime());
-  const isPast = isValidDate && eventDate.getTime() < Date.now();
+  // const isPast = isValidDate && eventDate.getTime() < Date.now();
 
   const data = {
     "@context": "https://schema.org",
@@ -59,9 +59,9 @@ function EventStructuredData({ event }: { event: (typeof events)[number] }) {
     url: `${siteConfig.url}/events/${event.slug}`,
     image: [`${siteConfig.url}${event.image.src}`],
     startDate: isValidDate ? eventDate.toISOString() : undefined,
-    eventStatus: isPast
-      ? "https://schema.org/EventCompleted"
-      : "https://schema.org/EventScheduled",
+    // eventStatus: isPast
+    //   ? "https://schema.org/EventCompleted"
+    //   : "https://schema.org/EventScheduled",
     organizer: {
       "@type": "Organization",
       name: "GDG AIT Pune",

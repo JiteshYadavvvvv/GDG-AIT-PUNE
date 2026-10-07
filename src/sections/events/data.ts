@@ -8,7 +8,7 @@ import devdash from "./assets/devdash.jpeg";
 import flutterWorkshop from "./assets/flutter-workshop.webp";
 import syntax from "./assets/syntax.png";
 import googleSolutions from "./assets/google-solutions.webp";
-import hacktoberfest from "./assets/hacktoberfest.jpg";
+// import hacktoberfest from "./assets/hacktoberfest.jpg";
 import mlStudyJam from "./assets/ml-study-jam.jpg";
 
 export type EventCategory = "Hackathon" | "Workshop" | "Study Jam" | "Community Event";
