@@ -1,4 +1,3 @@
-import type { Metadata } from "next";
 
 import { Hero } from "@/sections/hero/hero";
 import { About } from "@/sections/about/about";
@@ -10,9 +9,7 @@ import { Events } from "@/sections/events/events";
 import { Projects } from "@/sections/projects/projects";
 import { Team } from "@/sections/team/team";
 
-export const metadata: Metadata = {
-  robots: { index: false, follow: false },
-};
+
 
 export default function Home() {
   return (
