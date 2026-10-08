@@ -17,6 +17,12 @@ import sanshey from "./assets/sanshey.jpg";
 import srijanTripathi from "./assets/srijan-tripathi.jpeg";
 import sumitNath from "./assets/sumit-nath.jpg";
 import vigneshPandi from "./assets/vignesh-pandi.png";
+import ashutoshMishra from "./assets/ashutosh-mishra.jpg";
+import adityaRana from "./assets/aditya-rana.jpg";
+import ayushKumar from "./assets/ayush-kumar.jpg";
+import aryanSingh from "./assets/aryan-singh.jpg";
+import sreyashSingh from "./assets/sreyash-singh.png";
+import nitheshYadav from "./assets/nithesh-yadav.png";
 
 export type TeamGroupName = "Facilitators" | "Leads & Domain Heads" | "Mentors" | "Alumni";
 
@@ -53,13 +59,14 @@ export const teamGroups: TeamGroupDef[] = [
     members: [
       { slug: "nishant-singh", name: "Nishant Singh", role: "GDG Secretary", instagram: "_nishant_singhh_", image: nishantSingh },
       { slug: "divyanshi-choudhary", name: "Divyanshi Choudhary", role: "GDG Secretary", image: divyanshiChoudhary },
-      { slug: "rishabh-kumar", name: "Rishabh Kumar", role: "Web Dev Lead", image: rishabhKumar },
+      
+      { slug: "aryan-singh", name: "Aryan Singh", role: "Web Dev Lead",instagram: "aryancheers", image: aryanSingh },
       { slug: "sanshey", name: "Sanshey", role: "UI/UX Lead", instagram: "09_s.unshine", image: sanshey },
-      { slug: "arun-kumar-kushwaha", name: "Arun Kumar Kushwaha", role: "Flutter Lead", instagram: "imwfy_a", image: arunKumarKushwaha },
-      { slug: "aayush-kumar", name: "Aayush Kumar", role: "AI/ML Lead", instagram: "nomumonu", image: aayushKumar },
-      { slug: "ashutosh-singh", name: "Ashutosh Singh", role: "AI/ML Lead", instagram: "ashutoshsingh058", image: ashutoshSingh },
-      { slug: "pavan-kumar", name: "Pavan Kumar", role: "Cloud Lead", instagram: "pavankumar_07s", image: pavanKumar },
-      { slug: "srijan-tripathi", name: "Srijan Tripathi", role: "Blockchain Lead", instagram: "sriijannn", image: srijanTripathi },
+      { slug: "sreyash-singh", name: "Sreyash Singh", role: "Flutter Lead", instagram: "sreyashsingh2024", image: sreyashSingh },
+      { slug: "ayush-kumar", name: "Ayush Kumar", role: "AI/ML Lead", instagram: "🙏", image: ayushKumar },
+      { slug: "aditya-rana", name: "Aditya Rana", role: "Cloud Lead", instagram: "mav3rick._09", image: adityaRana },
+      { slug: "nithesh-yadav", name: "Nithesh Yadav", role: "Cloud Lead", instagram: "nit.ydv", image: nitheshYadav },
+      { slug: "ashutosh-mishra", name: "Ashutosh Mishra", role: "Blockchain Lead", instagram: "ashum_9", image: ashutoshMishra },
     ],
   },
   {

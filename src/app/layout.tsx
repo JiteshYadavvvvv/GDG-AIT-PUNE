@@ -32,7 +32,7 @@ const googleSansCode = Google_Sans_Code({
 export const metadata: Metadata = {
   metadataBase: new URL(siteConfig.url),
   title: {
-    default: "GDG AIT Pune",
+    default: "GDG AIT",
     template: `%s · ${siteConfig.name}`,
   },
   description: siteConfig.description,
